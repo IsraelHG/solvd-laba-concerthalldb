@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
 import java.util.Properties;
 
 public class Database {
@@ -19,8 +18,6 @@ public class Database {
         } catch (IOException e) {
             throw new RuntimeException();
         }
-        Connection connection;
-        connection = DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
-        return connection;
+        return DriverManager.getConnection(props.getProperty("db.url"), props.getProperty("db.user"), props.getProperty("db.password"));
     }
 }

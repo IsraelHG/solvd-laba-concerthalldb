@@ -1,4 +1,4 @@
-package com.solvd.laba.database.interfaces;
+package com.solvd.laba.database.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @param <T> the type of entity managed by this DAO
  */
-public interface DAO<T> {
+public interface BaseDAO<T> {
     /**
      * Retrieves an entity from the database based on its ID.
      *

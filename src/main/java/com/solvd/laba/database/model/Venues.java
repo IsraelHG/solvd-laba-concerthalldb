@@ -1,4 +1,4 @@
-package com.solvd.laba.database;
+package com.solvd.laba.database.model;
 
 public class Venues {
     private int venueId;
@@ -7,6 +7,8 @@ public class Venues {
     private String state;
     private int capacity;
     private String website;
+
+    public Venues() {}
 
     public Venues(int venueId, String name, String city, String state, int capacity, String website) {
         this.venueId = venueId;
