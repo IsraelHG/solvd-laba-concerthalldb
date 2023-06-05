@@ -54,14 +54,6 @@ public class VenuesDAOImpl extends BaseDAOImpl<Venues> implements VenuesDAO {
                 + entity.getState() + "', capacity = '" + entity.getCapacity() + "', website = '" + entity.getWebsite();
     }
 
-    /**
-     * Fetches the venues associated with a specific event.
-     *
-     * @param eventId The ID of the event for which to fetch the venues.
-     * @return An ArrayList of Venues objects representing the venues associated with the event,
-     *         or an empty ArrayList if no venues are found.
-     * @throws SQLException if a database access error occurs.
-     */
     @Override
     public ArrayList<Venues> fetchVenuesForEvent(int eventId) {
         ArrayList<Venues> venueList = new ArrayList<>();
