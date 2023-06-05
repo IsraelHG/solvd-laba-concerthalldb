@@ -1,7 +1,6 @@
 package com.solvd.laba.database.dao;
 
 import com.solvd.laba.database.Database;
-import com.solvd.laba.database.model.Venues;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
