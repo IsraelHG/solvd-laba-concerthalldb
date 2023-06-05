@@ -1,5 +1,10 @@
 package com.solvd.laba.database.model;
 
+import com.solvd.laba.database.dao.EventsDAO;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Venues {
     private int venueId;
     private String name;
@@ -7,6 +12,7 @@ public class Venues {
     private String state;
     private int capacity;
     private String website;
+    private ArrayList<Events> events;
 
     public Venues() {}
 
@@ -17,6 +23,7 @@ public class Venues {
         this.state = state;
         this.capacity = capacity;
         this.website = website;
+        this.events = new ArrayList<>();
     }
 
     public int getVenueId() {
@@ -67,6 +74,26 @@ public class Venues {
         this.capacity = capacity;
     }
 
+    public ArrayList<Events> getEvents() {
+        return events;
+    }
+
+    public void setEvents(ArrayList<Events> events) {
+        this.events = events;
+    }
+
+    /**
+     * Retrieves and populates the events associated with the venue.
+     *
+     * @param eventDAO The EventsDAO used to fetch the events.
+     * @throws SQLException if a database access error occurs.
+     */
+    public void getEvents(EventsDAO eventDAO) throws SQLException {
+        if (eventDAO != null) {
+            setEvents(eventDAO.fetchEventsForVenue(venueId));
+        }
+    }
+
     @Override
     public String toString() {
         return "Venues{" +
@@ -76,6 +103,7 @@ public class Venues {
                 ", state='" + state + '\'' +
                 ", capacity=" + capacity +
                 ", website='" + website + '\'' +
+                ", events=" + events +
                 '}';
     }
 }

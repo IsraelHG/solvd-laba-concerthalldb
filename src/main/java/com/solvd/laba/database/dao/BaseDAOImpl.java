@@ -1,6 +1,7 @@
 package com.solvd.laba.database.dao;
 
 import com.solvd.laba.database.Database;
+import com.solvd.laba.database.model.Venues;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,8 +45,20 @@ public abstract class BaseDAOImpl<T> implements BaseDAO<T> {
     }
 
     @Override
-    public ArrayList<T> getAll() throws SQLException {
-        return null;
+    public ArrayList<T> getAll() {
+        ArrayList<T> resultList = new ArrayList<>();
+        String sql = "SELECT * FROM " + getTableName();
+        try (Connection connection = Database.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                T entity = mapRow(resultSet);
+                resultList.add(entity);
+            }
+        } catch (SQLException e) {
+            // Handle any potential database access errors
+            e.printStackTrace();
+        }
+        return resultList;
     }
 
     @Override
