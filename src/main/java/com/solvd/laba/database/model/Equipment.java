@@ -6,13 +6,11 @@ public class Equipment {
     private int equipmentId;
     private String name;
     private int quantity;
-    private ArrayList<Event> events;
 
     public Equipment(int equipmentId, String name, int quantity) {
         this.equipmentId = equipmentId;
         this.name = name;
         this.quantity = quantity;
-        this.events = new ArrayList<>();
     }
 
     public int getEquipmentId() {
@@ -39,21 +37,12 @@ public class Equipment {
         this.quantity = quantity;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
-    }
-
     @Override
     public String toString() {
         return "Equipments{" +
                 "equipmentId=" + equipmentId +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
-                ", events=" + events +
                 '}';
     }
 }
