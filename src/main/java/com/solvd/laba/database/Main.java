@@ -1,16 +1,13 @@
 package com.solvd.laba.database;
 
-import com.solvd.laba.database.dao.*;
-import com.solvd.laba.database.model.Events;
-import com.solvd.laba.database.model.EventsHasVenues;
-import com.solvd.laba.database.model.Venues;
+import com.solvd.laba.database.model.Event;
+import com.solvd.laba.database.model.Venue;
 import com.solvd.laba.database.service.EventService;
 import com.solvd.laba.database.service.VenueService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Main {
     public static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
@@ -48,10 +45,10 @@ public class Main {
 //      Testing my Service layer
 //      --------------------------------------
         VenueService venueService = new VenueService();
-        Venues venue1;
+        Venue venue1;
 
         EventService eventService = new EventService();
-        Events event1;
+        Event event1;
         try {
             venue1 = venueService.getVenue(1);
             LOGGER.info(venue1);

@@ -1,7 +1,7 @@
 package com.solvd.laba.database.dao;
 
 import com.solvd.laba.database.Database;
-import com.solvd.laba.database.model.Venues;
+import com.solvd.laba.database.model.Venue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,11 +13,11 @@ import java.util.ArrayList;
  * The VenuesDAOImpl class is an implementation of the VenuesDAO interface that provides
  * methods to interact with the Venues table in the database using JDBC.
  */
-public class VenuesDAOImpl extends BaseDAOImpl<Venues> implements VenuesDAO {
+public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
 
     @Override
-    protected Venues mapRow(ResultSet resultSet) throws SQLException {
-        Venues venue = new Venues();
+    protected Venue mapRow(ResultSet resultSet) throws SQLException {
+        Venue venue = new Venue();
         venue.setVenueId(resultSet.getInt("venue_id"));
         venue.setName(resultSet.getString("name"));
         venue.setCity(resultSet.getString("city"));
@@ -38,32 +38,32 @@ public class VenuesDAOImpl extends BaseDAOImpl<Venues> implements VenuesDAO {
     }
 
     @Override
-    protected int getId(Venues entity) {
+    protected int getId(Venue entity) {
         return entity.getVenueId();
     }
 
     @Override
-    protected String getInsertValues(Venues entity) {
+    protected String getInsertValues(Venue entity) {
         return entity.getVenueId() + "', '" + entity.getName() + "', '" + entity.getCity() + "', '"
                 + entity.getState() + "', '" + entity.getCapacity() + "', '" + entity.getWebsite();
     }
 
     @Override
-    protected String getUpdateValues(Venues entity) {
+    protected String getUpdateValues(Venue entity) {
         return "name = '" + entity.getName() + "', city = '" + entity.getCity() + "', state = '"
                 + entity.getState() + "', capacity = '" + entity.getCapacity() + "', website = '" + entity.getWebsite();
     }
 
     @Override
-    public ArrayList<Venues> fetchVenuesForEvent(int eventId) {
-        ArrayList<Venues> venueList = new ArrayList<>();
+    public ArrayList<Venue> fetchVenuesForEvent(int eventId) {
+        ArrayList<Venue> venueList = new ArrayList<>();
         String sql = "SELECT * FROM events_has_venues WHERE event_id=?";
         try (Connection connection = Database.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, eventId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int venueId = resultSet.getInt("venue_id");
-                Venues venue = fetchVenueById(venueId);
+                Venue venue = fetchVenueById(venueId);
                 if (venue != null) {
                     venueList.add(venue);
                 }
@@ -82,7 +82,7 @@ public class VenuesDAOImpl extends BaseDAOImpl<Venues> implements VenuesDAO {
      * @param venueId The ID of the venue to fetch.
      * @return The Venues object representing the fetched venue, or null if the venue is not found.
      */
-    private Venues fetchVenueById(int venueId) throws SQLException {
+    private Venue fetchVenueById(int venueId) throws SQLException {
         Connection connection = Database.getConnection();
         String sql = "SELECT * FROM venues WHERE venue_id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -97,7 +97,7 @@ public class VenuesDAOImpl extends BaseDAOImpl<Venues> implements VenuesDAO {
                 String website = resultSet.getString("website");
 
                 // Create a Venues object with the fetched details
-                return new Venues(fetchedVenueId, name, city, state, capacity, website);
+                return new Venue(fetchedVenueId, name, city, state, capacity, website);
             }
         } catch (SQLException e) {
             // Handle any potential database access errors
