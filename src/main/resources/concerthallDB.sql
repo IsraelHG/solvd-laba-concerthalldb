@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema concerthallDB
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `concerthallDB` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `concerthallDB` DEFAULT CHARACTER SET utf8mb4 ;
 USE `concerthallDB` ;
 
 -- -----------------------------------------------------
@@ -47,29 +47,6 @@ CREATE TABLE IF NOT EXISTS `concerthallDB`.`Artists` (
   `name` VARCHAR(100) NOT NULL,
   `genre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`artist_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `concerthallDB`.`Concerts`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `concerthallDB`.`Concerts` (
-  `concert_id` INT NOT NULL AUTO_INCREMENT,
-  `event_id` INT NOT NULL,
-  `artist_id` INT NOT NULL,
-  PRIMARY KEY (`concert_id`),
-  INDEX `fk_Concert_Event1_idx` (`event_id` ASC) VISIBLE,
-  INDEX `fk_Concert_Artist1_idx` (`artist_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Concert_Event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `concerthallDB`.`Events` (`event_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Concert_Artist1`
-    FOREIGN KEY (`artist_id`)
-    REFERENCES `concerthallDB`.`Artists` (`artist_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -117,28 +94,28 @@ CREATE TABLE IF NOT EXISTS `concerthallDB`.`Bookings` (
   `booking_date` DATETIME NOT NULL,
   `ticket_id` INT NOT NULL,
   PRIMARY KEY (`booking_id`),
-  INDEX `fk_Booking_Event1_idx` (`event_id` ASC) VISIBLE,
-  INDEX `fk_Booking_Audience1_idx` (`audience_id` ASC) VISIBLE,
-  INDEX `fk_Booking_Staff1_idx` (`staff_id` ASC) VISIBLE,
   INDEX `fk_Bookings_Tickets1_idx` (`ticket_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Booking_Event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `concerthallDB`.`Events` (`event_id`)
+  INDEX `fk_Bookings_Staffs1_idx` (`staff_id` ASC) VISIBLE,
+  INDEX `fk_Bookings_Audiences1_idx` (`audience_id` ASC) VISIBLE,
+  INDEX `fk_Bookings_Events1_idx` (`event_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Bookings_Tickets1`
+    FOREIGN KEY (`ticket_id`)
+    REFERENCES `concerthallDB`.`Tickets` (`ticket_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Booking_Audience1`
-    FOREIGN KEY (`audience_id`)
-    REFERENCES `concerthallDB`.`Audiences` (`audience_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Booking_Staff1`
+  CONSTRAINT `fk_Bookings_Staffs1`
     FOREIGN KEY (`staff_id`)
     REFERENCES `concerthallDB`.`Staffs` (`staff_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Bookings_Tickets1`
-    FOREIGN KEY (`ticket_id`)
-    REFERENCES `concerthallDB`.`Tickets` (`ticket_id`)
+  CONSTRAINT `fk_Bookings_Audiences1`
+    FOREIGN KEY (`audience_id`)
+    REFERENCES `concerthallDB`.`Audiences` (`audience_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Bookings_Events1`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `concerthallDB`.`Events` (`event_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -156,58 +133,12 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `concerthallDB`.`Event_Equipments`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `concerthallDB`.`Event_Equipments` (
-  `event_equipment_id` INT NOT NULL AUTO_INCREMENT,
-  `event_id` INT NOT NULL,
-  `equipment_id` INT NOT NULL,
-  INDEX `fk_Event_Equipment_Event1_idx` (`event_id` ASC) VISIBLE,
-  INDEX `fk_Event_Equipment_Equipment1_idx` (`equipment_id` ASC) VISIBLE,
-  PRIMARY KEY (`event_equipment_id`, `event_id`, `equipment_id`),
-  CONSTRAINT `fk_Event_Equipment_Event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `concerthallDB`.`Events` (`event_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Event_Equipment_Equipment1`
-    FOREIGN KEY (`equipment_id`)
-    REFERENCES `concerthallDB`.`Equipments` (`equipment_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `concerthallDB`.`Sponsors`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `concerthallDB`.`Sponsors` (
   `sponsor_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`sponsor_id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `concerthallDB`.`Event_Sponsors`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `concerthallDB`.`Event_Sponsors` (
-  `event_sponsor_id` INT NOT NULL AUTO_INCREMENT,
-  `event_id` INT NOT NULL,
-  `sponsor_id` INT NOT NULL,
-  INDEX `fk_Event_Sponsor_Event1_idx` (`event_id` ASC) VISIBLE,
-  INDEX `fk_Event_Sponsor_Sponsor1_idx` (`sponsor_id` ASC) VISIBLE,
-  PRIMARY KEY (`event_sponsor_id`, `event_id`, `sponsor_id`),
-  CONSTRAINT `fk_Event_Sponsor_Event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `concerthallDB`.`Events` (`event_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Event_Sponsor_Sponsor1`
-    FOREIGN KEY (`sponsor_id`)
-    REFERENCES `concerthallDB`.`Sponsors` (`sponsor_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -220,16 +151,16 @@ CREATE TABLE IF NOT EXISTS `concerthallDB`.`Feedbacks` (
   `audience_id` INT NOT NULL,
   `rating` INT NOT NULL,
   PRIMARY KEY (`feedback_id`),
-  INDEX `fk_Feedback_Event1_idx` (`event_id` ASC) VISIBLE,
-  INDEX `fk_Feedback_Audience1_idx` (`audience_id` ASC) VISIBLE,
-  CONSTRAINT `fk_Feedback_Event1`
-    FOREIGN KEY (`event_id`)
-    REFERENCES `concerthallDB`.`Events` (`event_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Feedback_Audience1`
+  INDEX `fk_Feedbacks_Audiences1_idx` (`audience_id` ASC) VISIBLE,
+  INDEX `fk_Feedbacks_Events1_idx` (`event_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Feedbacks_Audiences1`
     FOREIGN KEY (`audience_id`)
     REFERENCES `concerthallDB`.`Audiences` (`audience_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Feedbacks_Events1`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `concerthallDB`.`Events` (`event_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -255,6 +186,75 @@ CREATE TABLE IF NOT EXISTS `concerthallDB`.`Events_has_Venues` (
     REFERENCES `concerthallDB`.`Venues` (`venue_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `concerthallDB`.`Events_has_Artists`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `concerthallDB`.`Events_has_Artists` (
+  `events_has_artists_id` INT NOT NULL AUTO_INCREMENT,
+  `event_id` INT NOT NULL,
+  `artist_id` INT NOT NULL,
+  PRIMARY KEY (`events_has_artists_id`, `event_id`, `artist_id`),
+  INDEX `fk_Events_has_Artists_Artists1_idx` (`artist_id` ASC) VISIBLE,
+  INDEX `fk_Events_has_Artists_Events1_idx` (`event_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Events_has_Artists_Events1`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `concerthallDB`.`Events` (`event_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Events_has_Artists_Artists1`
+    FOREIGN KEY (`artist_id`)
+    REFERENCES `concerthallDB`.`Artists` (`artist_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `concerthallDB`.`Events_has_Equipments`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `concerthallDB`.`Events_has_Equipments` (
+  `events_has_equipments_id` INT NOT NULL AUTO_INCREMENT,
+  `event_id` INT NOT NULL,
+  `equipment_id` INT NOT NULL,
+  PRIMARY KEY (`events_has_equipments_id`, `event_id`, `equipment_id`),
+  INDEX `fk_Events_has_Equipments_Equipments1_idx` (`equipment_id` ASC) VISIBLE,
+  INDEX `fk_Events_has_Equipments_Events1_idx` (`event_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Events_has_Equipments_Events1`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `concerthallDB`.`Events` (`event_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Events_has_Equipments_Equipments1`
+    FOREIGN KEY (`equipment_id`)
+    REFERENCES `concerthallDB`.`Equipments` (`equipment_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `concerthallDB`.`Events_has_Sponsors`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `concerthallDB`.`Events_has_Sponsors` (
+  `events_has_sponsors_id` INT NOT NULL AUTO_INCREMENT,
+  `event_id` INT NOT NULL,
+  `sponsor_id` INT NOT NULL,
+  PRIMARY KEY (`events_has_sponsors_id`, `event_id`, `sponsor_id`),
+  INDEX `fk_Events_has_Sponsors_Sponsors1_idx` (`sponsor_id` ASC) VISIBLE,
+  INDEX `fk_Events_has_Sponsors_Events1_idx` (`event_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Events_has_Sponsors_Events1`
+    FOREIGN KEY (`event_id`)
+    REFERENCES `concerthallDB`.`Events` (`event_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Events_has_Sponsors_Sponsors1`
+    FOREIGN KEY (`sponsor_id`)
+    REFERENCES `concerthallDB`.`Sponsors` (`sponsor_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

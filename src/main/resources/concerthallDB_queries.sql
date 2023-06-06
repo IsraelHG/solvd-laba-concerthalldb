@@ -47,11 +47,11 @@ INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES 
 INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('3', '3');
 INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('4', '4');
 INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('4', '1');
-INSERT INTO `concerthalldb`.`concerts` (`event_id`, `artist_id`) VALUES ('1', '1');
-INSERT INTO `concerthalldb`.`concerts` (`event_id`, `artist_id`) VALUES ('2', '2');
-INSERT INTO `concerthalldb`.`concerts` (`event_id`, `artist_id`) VALUES ('3', '3');
-INSERT INTO `concerthalldb`.`concerts` (`event_id`, `artist_id`) VALUES ('4', '4');
-INSERT INTO `concerthalldb`.`concerts` (`event_id`, `artist_id`) VALUES ('5', '5');
+INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('1', '1');
+INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('2', '2');
+INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('3', '3');
+INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('4', '4');
+INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('5', '5');
 INSERT INTO `concerthalldb`.`bookings` (`event_id`, `audience_id`, `staff_id`, `booking_date`, `ticket_id`) VALUES ('1', '2', '1', '2023-05-26 10:00:00', '1');
 INSERT INTO `concerthalldb`.`bookings` (`event_id`, `audience_id`, `staff_id`, `booking_date`, `ticket_id`) VALUES ('2', '3', '2', '2023-05-27 15:00:00', '2');
 INSERT INTO `concerthalldb`.`bookings` (`event_id`, `audience_id`, `staff_id`, `booking_date`, `ticket_id`) VALUES ('3', '1', '3', '2023-05-21 12:00:00', '3');
@@ -59,7 +59,7 @@ INSERT INTO `concerthalldb`.`sponsors` (`name`, `sponsorship_amount`)
 VALUES ('Company A', 5000.00),
        ('Company B', 7500.00),
        ('Company C', 10000.00);
-INSERT INTO `concerthalldb`.`event_sponsors` (`event_id`, `sponsor_id`)
+INSERT INTO `concerthalldb`.`events_has_sponsors` (`event_id`, `sponsor_id`)
 VALUES (1, 1),
        (2, 2),
        (3, 3);
@@ -67,7 +67,7 @@ INSERT INTO `concerthalldb`.`equipments` (`name`, `quantity`)
 VALUES ('Microphone', 10),
        ('Guitar', 5),
        ('Drums', 3);
-INSERT INTO `concerthalldb`.`event_equipments` (`event_id`, `equipment_id`)
+INSERT INTO `concerthalldb`.`events_has_equipments` (`event_id`, `equipment_id`)
 VALUES (1, 1),
        (2, 2),
        (3, 3);
@@ -100,13 +100,13 @@ SELECT *
 FROM Venues v
 JOIN Events_has_Venues ev ON v.venue_id = ev.venue_id
 JOIN Events e ON e.event_id = ev.event_id
-JOIN Concerts c ON e.event_id = c.event_id
-JOIN Artists a ON a.artist_id = c.artist_id
+JOIN Events_Has_Artists ea ON e.event_id = ea.event_id
+JOIN Artists a ON a.artist_id = ea.artist_id
 JOIN Bookings b ON b.event_id = e.event_id
 JOIN Audiences au ON au.audience_id = b.audience_id
 JOIN Staffs s ON s.staff_id = b.staff_id
 JOIN Tickets t ON t.ticket_id = b.ticket_id
-JOIN Event_Equipments ee ON ee.event_id = e.event_id
+JOIN Events_Has_Equipments ee ON ee.event_id = e.event_id
 JOIN Equipments eq ON eq.equipment_id = ee.equipment_id;
 
 -- Left Join:
@@ -127,19 +127,19 @@ RIGHT JOIN Events AS e ON ev.event_id = e.event_id;
 -- Retrieves data about events and their associated artists
 SELECT e.name AS event_name, a.first_name AS artist_name
 FROM Events AS e
-INNER JOIN Concerts AS c ON e.event_id = c.event_id
-INNER JOIN Artists AS a ON c.artist_id = a.artist_id;
+INNER JOIN Events_Has_Artists AS ea ON e.event_id = ea.event_id
+INNER JOIN Artists AS a ON ea.artist_id = a.artist_id;
 
 -- Outer Join (combination of Left and Right Joins):
 -- Retrieves data about events and their sponsors
 SELECT e.name AS event_name, s.name AS sponsor_name
 FROM Events AS e
-LEFT JOIN Event_Sponsors AS es ON e.event_id = es.event_id
+LEFT JOIN Events_Has_Sponsors AS es ON e.event_id = es.event_id
 LEFT JOIN Sponsors AS s ON es.sponsor_id = s.sponsor_id
 UNION
 SELECT e.name AS event_name, s.name AS sponsor_name
 FROM Events AS e
-RIGHT JOIN Event_Sponsors AS es ON e.event_id = es.event_id
+RIGHT JOIN Events_Has_Sponsors AS es ON e.event_id = es.event_id
 RIGHT JOIN Sponsors AS s ON es.sponsor_id = s.sponsor_id;
 
 -- Cross Join:
@@ -162,7 +162,7 @@ GROUP BY e.name;
 
 -- Calculate the total quantity of equipment used in each event
 SELECT SUM(e.quantity) AS total_equipments, ev.name AS event_name
-FROM Event_Equipments AS ee
+FROM Events_Has_Equipments AS ee
 JOIN Events AS ev ON ee.event_id = ev.event_id
 JOIN Equipments AS e ON ee.equipment_id = e.equipment_id
 GROUP BY ev.name;
@@ -183,14 +183,14 @@ GROUP BY e.name;
 
 -- Total number of bookings for each artist in the Concerts table
 SELECT COUNT(*) AS total_bookings, a.first_name AS artist_first_name, a.last_name AS artist_last_name
-FROM Concerts AS c
-JOIN Events AS e ON c.event_id = e.event_id
-JOIN Artists AS a ON c.artist_id = a.artist_id
+FROM Events_Has_Artists AS ea
+JOIN Events AS e ON ea.event_id = e.event_id
+JOIN Artists AS a ON ea.artist_id = a.artist_id
 GROUP BY a.first_name, a.last_name;
 
 -- Counts the number of sponsors for each event
 SELECT COUNT(*) AS total_sponsors, e.name AS event_name
-FROM Event_Sponsors AS es
+FROM Events_Has_Sponsors AS es
 JOIN Events AS e ON es.event_id = e.event_id
 GROUP BY e.name;
 
@@ -224,14 +224,14 @@ GROUP BY s.staff_id;
 
 -- Get the total quantity of each equipment used in all events
 SELECT eq.name, SUM(eq.quantity) AS total_quantity_used
-FROM Event_Equipments ee
+FROM Events_Has_Equipments ee
 JOIN Equipments eq ON ee.equipment_id = eq.equipment_id
 GROUP BY eq.equipment_id;
 
 -- Get the total number of concerts each artist has performed
 SELECT a.first_name, COUNT(*) AS total_concerts
-FROM Concerts c
-JOIN Artists a ON c.artist_id = a.artist_id
+FROM Events_Has_Artists ea
+JOIN Artists a ON ea.artist_id = a.artist_id
 GROUP BY a.artist_id;
 
 -- Get the total revenue generated by each event, assuming each ticket costs $50
