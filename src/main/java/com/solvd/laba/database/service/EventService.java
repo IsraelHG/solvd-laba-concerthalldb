@@ -1,11 +1,11 @@
 package com.solvd.laba.database.service;
 
-import com.solvd.laba.database.dao.EventsDAO;
-import com.solvd.laba.database.dao.EventsDAOImpl;
-import com.solvd.laba.database.dao.VenuesDAO;
-import com.solvd.laba.database.dao.VenuesDAOImpl;
-import com.solvd.laba.database.model.Events;
-import com.solvd.laba.database.model.Venues;
+import com.solvd.laba.database.dao.EventDAO;
+import com.solvd.laba.database.dao.EventDAOImpl;
+import com.solvd.laba.database.dao.VenueDAO;
+import com.solvd.laba.database.dao.VenueDAOImpl;
+import com.solvd.laba.database.model.Event;
+import com.solvd.laba.database.model.Venue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,13 +19,13 @@ public class EventService {
      * @return the event object with the specified ID, including its associated venues
      * @throws SQLException if an error occurs while accessing the database
      */
-    public Events getEvent(int eventId) throws SQLException {
+    public Event getEvent(int eventId) throws SQLException {
 
-    EventsDAO eventsDAO = new EventsDAOImpl();
-    Events event = eventsDAO.get(eventId);
+    EventDAO eventsDAO = new EventDAOImpl();
+    Event event = eventsDAO.get(eventId);
 
-    VenuesDAO venuesDAO = new VenuesDAOImpl();
-    ArrayList<Venues> venues = venuesDAO.fetchVenuesForEvent(eventId);
+    VenueDAO venuesDAO = new VenueDAOImpl();
+    ArrayList<Venue> venues = venuesDAO.fetchVenuesForEvent(eventId);
     event.setVenues(venues);
     return event;
     }

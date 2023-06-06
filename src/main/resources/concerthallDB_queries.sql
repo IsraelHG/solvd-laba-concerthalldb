@@ -46,7 +46,7 @@ INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES 
 INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('2', '2');
 INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('3', '3');
 INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('4', '4');
-INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('4', '1');
+INSERT INTO `concerthalldb`.`events_has_venues` (`event_id`, `venue_id`) VALUES ('1', '4');
 INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('1', '1');
 INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('2', '2');
 INSERT INTO `concerthalldb`.`events_has_artists` (`event_id`, `artist_id`) VALUES ('3', '3');

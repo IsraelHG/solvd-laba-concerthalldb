@@ -1,6 +1,6 @@
 package com.solvd.laba.database.dao;
 
-import com.solvd.laba.database.model.Venues;
+import com.solvd.laba.database.model.Venue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * The VenuesDAO interface extends the BaseDAO interface and provides specific data access operations for managing
  * venues in the database.
  */
-public interface VenuesDAO extends BaseDAO<Venues> {
+public interface VenueDAO extends BaseDAO<Venue> {
     /**
      * Fetches the venues associated with a specific event.
      *
@@ -18,5 +18,5 @@ public interface VenuesDAO extends BaseDAO<Venues> {
      *         or an empty ArrayList if no venues are found.
      * @throws SQLException if a database access error occurs.
      */
-    ArrayList<Venues> fetchVenuesForEvent(int eventId);
+    ArrayList<Venue> fetchVenuesForEvent(int eventId);
 }

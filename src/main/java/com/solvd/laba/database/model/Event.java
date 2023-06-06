@@ -1,21 +1,21 @@
 package com.solvd.laba.database.model;
 
-import com.solvd.laba.database.dao.VenuesDAO;
-
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-public class Events {
+public class Event {
     private int eventId;
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private ArrayList<Venues> venues;
+    private ArrayList<Venue> venues;
+    private ArrayList<Artist> artists;
+    private ArrayList<Equipment> equipments;
+    private ArrayList<Sponsor> sponsors;
 
-    public Events() {}
+    public Event() {}
 
-    public Events(int eventId, String name, LocalDateTime startDate, LocalDateTime endDate) {
+    public Event(int eventId, String name, LocalDateTime startDate, LocalDateTime endDate) {
         this.eventId = eventId;
         this.name = name;
         this.startDate = startDate;
@@ -54,15 +54,39 @@ public class Events {
         this.endDate = endDate;
     }
 
-    public ArrayList<Venues> getVenues() {
+    public ArrayList<Venue> getVenues() {
         return venues;
     }
 
-    public void setVenues(ArrayList<Venues> venues) {
+    public void setVenues(ArrayList<Venue> venues) {
         this.venues = venues;
     }
 
-//    public void getVenues(VenuesDAO venueDAO) throws SQLException {
+    public ArrayList<Artist> getArtists() {
+        return artists;
+    }
+
+    public void setArtists(ArrayList<Artist> artists) {
+        this.artists = artists;
+    }
+
+    public ArrayList<Equipment> getEquipments() {
+        return equipments;
+    }
+
+    public void setEquipments(ArrayList<Equipment> equipments) {
+        this.equipments = equipments;
+    }
+
+    public ArrayList<Sponsor> getSponsors() {
+        return sponsors;
+    }
+
+    public void setSponsors(ArrayList<Sponsor> sponsors) {
+        this.sponsors = sponsors;
+    }
+
+    //    public void getVenues(VenuesDAO venueDAO) throws SQLException {
 //        if (venueDAO != null) {
 //            setVenues(venueDAO.fetchVenuesForEvent(eventId));
 //        }
