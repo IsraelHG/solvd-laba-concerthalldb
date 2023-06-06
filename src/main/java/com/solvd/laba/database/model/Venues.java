@@ -88,11 +88,11 @@ public class Venues {
      * @param eventDAO The EventsDAO used to fetch the events.
      * @throws SQLException if a database access error occurs.
      */
-    public void getEvents(EventsDAO eventDAO) throws SQLException {
-        if (eventDAO != null) {
-            setEvents(eventDAO.fetchEventsForVenue(venueId));
-        }
-    }
+//    public void getEvents(EventsDAO eventDAO) throws SQLException {
+//        if (eventDAO != null) {
+//            setEvents(eventDAO.fetchEventsForVenue(venueId));
+//        }
+//    }
 
     @Override
     public String toString() {
