@@ -6,7 +6,6 @@ public class Artist {
     private int artistId;
     private String name;
     private String genre;
-    ArrayList<Event> events;
 
     public Artist() {}
 
@@ -40,21 +39,12 @@ public class Artist {
         this.genre = genre;
     }
 
-    public ArrayList<Event> getEvents() {
-        return events;
-    }
-
-    public void setEvents(ArrayList<Event> events) {
-        this.events = events;
-    }
-
     @Override
     public String toString() {
         return "Artists{" +
                 "artistId=" + artistId +
                 ", name='" + name + '\'' +
                 ", genre='" + genre + '\'' +
-                ", events=" + events +
                 '}';
     }
 }
