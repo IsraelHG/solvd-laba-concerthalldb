@@ -11,7 +11,6 @@ public class Events {
     private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-
     private ArrayList<Venues> venues;
 
     public Events() {}
@@ -63,11 +62,11 @@ public class Events {
         this.venues = venues;
     }
 
-    public void getVenues(VenuesDAO venueDAO) throws SQLException {
-        if (venueDAO != null) {
-            setVenues(venueDAO.fetchVenuesForEvent(eventId));
-        }
-    }
+//    public void getVenues(VenuesDAO venueDAO) throws SQLException {
+//        if (venueDAO != null) {
+//            setVenues(venueDAO.fetchVenuesForEvent(eventId));
+//        }
+//    }
 
     @Override
     public String toString() {
