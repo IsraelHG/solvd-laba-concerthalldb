@@ -10,7 +10,20 @@ import com.solvd.laba.database.model.Venue;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * The EventService class represents a high-level service to
+ * access data from its database. It contains methods that are
+ * meant to retrieve relevant information about its corresponding
+ * entity object.
+ */
 public class EventService {
+    private final EventDAO eventDAO;
+    private final VenueDAO venueDAO;
+
+    public EventService() {
+        venueDAO = new VenueDAOImpl();
+        eventDAO = new EventDAOImpl();
+    }
 
     /**
      * Retrieves an event with the specified ID along with its associated venues.
@@ -20,14 +33,20 @@ public class EventService {
      * @throws SQLException if an error occurs while accessing the database
      */
     public Event getEvent(int eventId) throws SQLException {
+        Event event = eventDAO.get(eventId);
+        ArrayList<Venue> venues = venueDAO.fetchVenuesForEvent(eventId);
+        event.setVenues(venues);
+        return event;
+    }
 
-    EventDAO eventsDAO = new EventDAOImpl();
-    Event event = eventsDAO.get(eventId);
-
-    VenueDAO venuesDAO = new VenueDAOImpl();
-    ArrayList<Venue> venues = venuesDAO.fetchVenuesForEvent(eventId);
-    event.setVenues(venues);
-    return event;
+    /**
+     * Sets an event and inserts it into the database along with its credentials.
+     *
+     * @param event event object to be pushed into the server
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void setEvent(Event event) throws SQLException {
+        eventDAO.insert(event);
     }
 
 }

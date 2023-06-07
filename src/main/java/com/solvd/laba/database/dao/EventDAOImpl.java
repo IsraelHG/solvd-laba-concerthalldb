@@ -12,21 +12,26 @@ import java.util.ArrayList;
  * methods to interact with the Events table in the database using JDBC.
  */
 public class EventDAOImpl extends BaseDAOImpl<Event> implements EventDAO {
+    private static final String EVENT_ID = "event_id";
+    private static final String NAME = "name";
+    private static final String START_DATE = "start_date";
+    private static final String END_DATE = "end_date";
+    private static final String TABLE_NAME = "Events";
 
     @Override
     protected Event mapRow(ResultSet resultSet) throws SQLException {
         Event event = new Event();
-        event.setEventId(resultSet.getInt("event_id"));
-        event.setName(resultSet.getString("name"));
+        event.setEventId(resultSet.getInt(EVENT_ID));
+        event.setName(resultSet.getString(NAME));
         // Retrieve the start date as a Timestamp from the ResultSet
-        Timestamp startTimestamp = resultSet.getTimestamp("start_date");
+        Timestamp startTimestamp = resultSet.getTimestamp(START_DATE);
         if (startTimestamp != null) {
             // Convert the Timestamp to LocalDateTime
             LocalDateTime startDate = startTimestamp.toLocalDateTime();
             event.setStartDate(startDate);
         }
         // Retrieve the end date as a Timestamp from the ResultSet
-        Timestamp endTimestamp = resultSet.getTimestamp("end_date");
+        Timestamp endTimestamp = resultSet.getTimestamp(END_DATE);
         if (endTimestamp != null) {
             // Convert the Timestamp to LocalDateTime
             LocalDateTime endDate = endTimestamp.toLocalDateTime();
@@ -38,12 +43,12 @@ public class EventDAOImpl extends BaseDAOImpl<Event> implements EventDAO {
 
     @Override
     protected String getTableName() {
-        return "Events";
+        return TABLE_NAME;
     }
 
     @Override
     protected String getIdColumnName() {
-        return "event_id";
+        return EVENT_ID;
     }
 
     @Override
@@ -53,14 +58,14 @@ public class EventDAOImpl extends BaseDAOImpl<Event> implements EventDAO {
 
     @Override
     protected String getInsertValues(Event entity) {
-        return entity.getEventId() + "', '" + entity.getName() + "', '" + entity.getStartDate() + "', '"
-                + entity.getEndDate();
+        return "(" + NAME + ", " + START_DATE + ", " + END_DATE + ") VALUES ('" +
+                entity.getName() + "', '" + entity.getStartDate() + "', '" + entity.getEndDate() + "');";
     }
 
     @Override
     protected String getUpdateValues(Event entity) {
-        return "name = '" + entity.getName() + "', startDate = '" + entity.getStartDate() + "', endDate = '"
-                + entity.getEndDate();
+        return NAME + " = '" + entity.getName() + "', " + START_DATE + " = '" + entity.getStartDate() +
+                "', " + END_DATE + " = '" + entity.getEndDate() + "'";
     }
 
 //    @Override

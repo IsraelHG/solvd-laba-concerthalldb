@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @param <T> the type of entity managed by this DAO
  */
-public interface BaseDAO<T> {
+interface BaseDAO<T> {
     /**
      * Retrieves an entity from the database based on its ID.
      *
