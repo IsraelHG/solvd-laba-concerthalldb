@@ -1,11 +1,11 @@
 package com.solvd.laba.database.model;
 
-import java.util.ArrayList;
-
 public class Equipment {
     private int equipmentId;
     private String name;
     private int quantity;
+
+    public Equipment() {}
 
     public Equipment(int equipmentId, String name, int quantity) {
         this.equipmentId = equipmentId;

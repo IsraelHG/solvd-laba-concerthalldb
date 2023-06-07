@@ -1,18 +1,21 @@
 package com.solvd.laba.database.model;
 
-import java.util.ArrayList;
-
 public class Artist {
     private int artistId;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String genre;
+    private String email;
+
 
     public Artist() {}
 
-    public Artist(int artistId, String name, String genre) {
+    public Artist(int artistId, String firstName, String lastName, String genre, String email) {
         this.artistId = artistId;
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.genre = genre;
+        this.email = email;
     }
 
     public int getArtistId() {
@@ -23,12 +26,20 @@ public class Artist {
         this.artistId = artistId;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getGenre() {
@@ -39,12 +50,22 @@ public class Artist {
         this.genre = genre;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Artists{" +
                 "artistId=" + artistId +
-                ", name='" + name + '\'' +
-                ", genre='" + genre + '\'' +
+                ", firstName='" + firstName +
+                ", lastName='" + lastName +
+                ", genre='" + genre +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
