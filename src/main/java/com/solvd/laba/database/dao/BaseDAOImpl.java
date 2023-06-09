@@ -39,7 +39,7 @@ abstract class BaseDAOImpl<T> implements BaseDAO<T> {
             e.printStackTrace();
             return null;
         } finally {
-            connection.close();
+            Database.releaseConnection(connection);
         }
     }
 
@@ -57,6 +57,8 @@ abstract class BaseDAOImpl<T> implements BaseDAO<T> {
         } catch (SQLException e) {
             // Handle any potential database access errors
             e.printStackTrace();
+        } finally {
+            Database.releaseConnection(connection);
         }
         return resultList;
     }
@@ -79,7 +81,7 @@ abstract class BaseDAOImpl<T> implements BaseDAO<T> {
             e.printStackTrace();
             return 0;
         } finally {
-            connection.close();
+            Database.releaseConnection(connection);
         }
     }
 
