@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="events.xsd">
+    <event>
+        <eventId>1</eventId>
+        <name>Event 1</name>
+        <startDate>2023-06-01T10:00:00</startDate>
+        <endDate>2023-06-02T18:00:00</endDate>
+        <venues>
+            <venue>
+                <venueId>1</venueId>
+                <name>Venue 1</name>
+                <city>City 1</city>
+                <state>State 1</state>
+                <capacity>1000</capacity>
+                <website>http://www.example.com/venue1</website>
+            </venue>
+            <venue>
+                <venueId>2</venueId>
+                <name>Venue 2</name>
+                <city>City 2</city>
+                <state>State 2</state>
+                <capacity>2000</capacity>
+                <website>http://www.example.com/venue2</website>
+            </venue>
+        </venues>
+        <artists>
+            <artist>
+                <artistId>1</artistId>
+                <firstName>Freddy</firstName>
+                <lastName>Mercury</lastName>
+                <genre>Rock</genre>
+                <email>freddy.mercury@gmail.com</email>
+            </artist>
+        </artists>
+        <equipments>
+            <equipment>
+                <equipmentId>1</equipmentId>
+                <name>Guitar</name>
+                <quantity>5</quantity>
+            </equipment>
+        </equipments>
+        <sponsors>
+            <sponsor>
+                <sponsorId>1</sponsorId>
+                <name>Company A</name>
+                <sponsorshipAmount>1000.00</sponsorshipAmount>
+            </sponsor>
+        </sponsors>
+    </event>
+</events>
