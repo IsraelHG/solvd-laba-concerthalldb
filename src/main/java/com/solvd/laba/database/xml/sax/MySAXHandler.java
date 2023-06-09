@@ -40,17 +40,17 @@ public class MySAXHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) {
-        //LOGGER.info("<" + qName + ">");
+        LOGGER.info("<" + qName + ">");
     }
 
     @Override
     public void characters(char[] ch, int start, int length) {
-        //LOGGER.info(new String(ch, start, length));
+        LOGGER.info(new String(ch, start, length));
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) {
-        //LOGGER.info("</" + qName + ">");
+        LOGGER.info("</" + qName + ">");
     }
 
     @Override
