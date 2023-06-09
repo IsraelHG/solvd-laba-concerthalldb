@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="events">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="event" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="eventId" type="xs:int"/>
+                            <xs:element name="name" type="xs:string"/>
+                            <xs:element name="startDate" type="xs:dateTime"/>
+                            <xs:element name="endDate" type="xs:dateTime"/>
+                            <xs:element name="venues">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="venue" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="venueId" type="xs:int"/>
+                                                    <xs:element name="name" type="xs:string"/>
+                                                    <xs:element name="city" type="xs:string"/>
+                                                    <xs:element name="state" type="xs:string"/>
+                                                    <xs:element name="capacity" type="xs:int"/>
+                                                    <xs:element name="website" type="xs:anyURI"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="artists">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="artist" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="artistId" type="xs:int"/>
+                                                    <xs:element name="firstName" type="xs:string"/>
+                                                    <xs:element name="lastName" type="xs:string"/>
+                                                    <xs:element name="genre" type="xs:string"/>
+                                                    <xs:element name="email" type="xs:string"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="equipments">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="equipment" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="equipmentId" type="xs:int"/>
+                                                    <xs:element name="name" type="xs:string"/>
+                                                    <xs:element name="quantity" type="xs:int"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="sponsors">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="sponsor" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="sponsorId" type="xs:int"/>
+                                                    <xs:element name="name" type="xs:string"/>
+                                                    <xs:element name="sponsorshipAmount" type="xs:double"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
