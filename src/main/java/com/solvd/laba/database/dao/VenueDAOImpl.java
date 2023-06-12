@@ -64,21 +64,25 @@ public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
     }
 
     @Override
-    public ArrayList<Venue> fetchVenuesForEvent(int eventId) {
+    public ArrayList<Venue> fetchVenuesForEvent(int eventId) throws SQLException {
         ArrayList<Venue> venueList = new ArrayList<>();
         final String sql = "SELECT * FROM events_has_venues WHERE event_id=?";
-        try (Connection connection = Database.getConnection(); PreparedStatement statement = connection.prepareStatement(sql)) {
+        Connection connection = Database.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, eventId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int venueId = resultSet.getInt(VENUE_ID);
-                Venue venue = fetchVenueById(venueId);
+                Venue venue = fetchVenueById(venueId, connection);
                 if (venue != null) {
                     venueList.add(venue);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            Database.releaseConnection(connection);
         }
         return venueList;
 
@@ -91,28 +95,17 @@ public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
      * @param venueId The ID of the venue to fetch.
      * @return The Venues object representing the fetched venue, or null if the venue is not found.
      */
-    private Venue fetchVenueById(int venueId) throws SQLException {
-        Connection connection = Database.getConnection();
+    private Venue fetchVenueById(int venueId, Connection connection) throws SQLException {
         final String sql = "SELECT * FROM venues WHERE venue_id=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, venueId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int fetchedVenueId = resultSet.getInt(VENUE_ID);
-                String name = resultSet.getString(NAME);
-                String city = resultSet.getString(CITY);
-                String state = resultSet.getString(STATE);
-                int capacity = resultSet.getInt(CAPACITY);
-                String website = resultSet.getString(WEBSITE);
-
-                // Create a Venues object with the fetched details
-                return new Venue(fetchedVenueId, name, city, state, capacity, website);
+                return mapRow(resultSet);
             }
         } catch (SQLException e) {
             // Handle any potential database access errors
             e.printStackTrace();
-        } finally {
-            connection.close();
         }
         return null; // Return null if the venue is not found
     }

@@ -18,5 +18,5 @@ public interface VenueDAO extends BaseDAO<Venue> {
      *         or an empty ArrayList if no venues are found.
      * @throws SQLException if a database access error occurs.
      */
-    ArrayList<Venue> fetchVenuesForEvent(int eventId);
+    ArrayList<Venue> fetchVenuesForEvent(int eventId) throws SQLException;
 }
