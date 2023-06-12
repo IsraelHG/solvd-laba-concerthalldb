@@ -7,8 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 abstract class BaseDAOImpl<T> implements BaseDAO<T> {
+    ExecutorService executorService = Executors.newCachedThreadPool(); // I will add multithreading soon.....
 
     /**
      * Maps the current row of the ResultSet to an entity object.
