@@ -1,10 +1,25 @@
 package com.solvd.laba.database.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Artist {
+
+    @XmlElement(name="artistId")
     private int artistId;
+
+    @XmlElement(name="firstName")
     private String firstName;
+
+    @XmlElement(name="lastName")
     private String lastName;
+
+    @XmlElement(name="genre")
     private String genre;
+
+    @XmlElement(name="email")
     private String email;
 
 

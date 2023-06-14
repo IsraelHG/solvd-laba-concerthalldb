@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
 
 /**
  * The Database class provides a connection pooling mechanism for managing database connections.
@@ -18,10 +19,10 @@ import java.util.concurrent.LinkedBlockingQueue;
  */
 public class Database {
     public static final Logger LOGGER = LogManager.getLogger(Database.class.getName());
-    private static final int POOL_SIZE = 10;
-    private static final LinkedBlockingQueue<Connection> connectionPool = new LinkedBlockingQueue<>();
+    private static final int MAX_POOL_SIZE = 10;
+    private static final LinkedBlockingQueue<Connection> connectionPool = new LinkedBlockingQueue<>(MAX_POOL_SIZE);
+    private static final Semaphore connectionSemaphore = new Semaphore(MAX_POOL_SIZE);
     private static final Properties props = new Properties();
-    private static boolean isConnectionPoolInitialized = false;
 
     static {
         try {
@@ -46,10 +47,18 @@ public class Database {
      * @throws SQLException if an error occurs while obtaining a connection
      */
     public static Connection getConnection() throws SQLException {
-        initializeConnectionPool();
         try {
-            Connection connection = connectionPool.take();
-            LOGGER.info("Worker connected: " + Thread.currentThread().getName() + " Size: " + connectionPool.size());
+            connectionSemaphore.acquire(); // Acquire a permit from the semaphore
+
+            Connection connection;
+            if (connectionPool.isEmpty()) {
+                connection = createConnection();
+                LOGGER.info("Added connection: " + Thread.currentThread().getName());
+            } else {
+                connection = connectionPool.take();
+                LOGGER.info("Worker connected: " + Thread.currentThread().getName() +
+                        " [Available connections: " + connectionPool.size() + "]");
+            }
             return connection;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -64,33 +73,14 @@ public class Database {
      * @throws SQLException if an error occurs while releasing the connection
      */
     public static void releaseConnection(Connection connection) throws SQLException {
-        initializeConnectionPool();
         try {
             connectionPool.put(connection);
-            LOGGER.info("Worker exhausted: " + Thread.currentThread().getName() + " Size: " + connectionPool.size());
+            connectionSemaphore.release(); // Release a permit to the semaphore
+            LOGGER.info("Worker exhausted: " + Thread.currentThread().getName() +
+                    " [Available connections: " + connectionPool.size() + "]");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new SQLException("Failed to release the database connection.", e);
-        }
-    }
-
-    /**
-     * Initializes the connection pool if it has not been initialized yet.
-     * Creates and adds connections to the pool up to the maximum pool size.
-     */
-    private static synchronized void initializeConnectionPool() {
-        if (!isConnectionPoolInitialized) {
-            try {
-                for (int i = 0; i < POOL_SIZE; i++) {
-                    Connection connection = createConnection();
-                    connectionPool.offer(connection);
-                    LOGGER.info("Added connection: " + connectionPool.size());
-                }
-                isConnectionPoolInitialized = true;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            }
         }
     }
 

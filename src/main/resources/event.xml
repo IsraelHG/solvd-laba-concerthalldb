@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <event xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="event.xsd">
     <eventId>1</eventId>
-    <name>Event 1</name>
+    <eventName>Event 1</eventName>
     <startDate>2023-06-01T10:00:00</startDate>
     <endDate>2023-06-02T18:00:00</endDate>
     <venues>
         <venue>
             <venueId>1</venueId>
-            <name>Venue 1</name>
+            <venueName>Venue 1</venueName>
             <city>City 1</city>
             <state>State 1</state>
             <capacity>1000</capacity>
@@ -15,7 +15,7 @@
         </venue>
         <venue>
             <venueId>2</venueId>
-            <name>Venue 2</name>
+            <venueName>Venue 2</venueName>
             <city>City 2</city>
             <state>State 2</state>
             <capacity>2000</capacity>
@@ -34,14 +34,14 @@
     <equipments>
         <equipment>
             <equipmentId>1</equipmentId>
-            <name>Guitar</name>
+            <equipmentName>Guitar</equipmentName>
             <quantity>5</quantity>
         </equipment>
     </equipments>
     <sponsors>
         <sponsor>
             <sponsorId>1</sponsorId>
-            <name>Company A</name>
+            <sponsorName>Company A</sponsorName>
             <sponsorshipAmount>1000.00</sponsorshipAmount>
         </sponsor>
     </sponsors>

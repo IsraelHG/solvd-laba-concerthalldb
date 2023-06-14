@@ -1,9 +1,10 @@
 package com.solvd.laba.database.model;
 
+import com.solvd.laba.database.xml.annotations.adapters.LocalDateTimeAdapter;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import javax.xml.bind.annotation.*;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "event", namespace = "")
@@ -12,7 +13,7 @@ public class Event {
     @XmlElement(name="eventId")
     private int eventId;
 
-    @XmlElement(name="name")
+    @XmlElement(name="eventName")
     private String name;
 
     @XmlElement(name="startDate")
@@ -25,19 +26,19 @@ public class Event {
 
     @XmlElement(name = "venue")
     @XmlElementWrapper(name = "venues")
-    private ArrayList<Venue> venues;
+    private ArrayList<Venue> venues = new ArrayList<>();
 
     @XmlElement(name = "artist")
     @XmlElementWrapper(name = "artists")
-    private ArrayList<Artist> artists;
+    private ArrayList<Artist> artists = new ArrayList<>();
 
     @XmlElement(name = "equipment")
     @XmlElementWrapper(name = "equipments")
-    private ArrayList<Equipment> equipments;
+    private ArrayList<Equipment> equipments = new ArrayList<>();
 
     @XmlElement(name = "sponsor")
     @XmlElementWrapper(name = "sponsors")
-    private ArrayList<Sponsor> sponsors;
+    private ArrayList<Sponsor> sponsors = new ArrayList<>();
 
     public Event() {}
 
@@ -78,33 +79,6 @@ public class Event {
 
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
-    }
-
-    /**
-     * Adapter class for marshalling and unmarshalling LocalDateTime objects.
-     * Converts LocalDateTime objects to and from their XML representation as strings.
-     */
-    private static class LocalDateTimeAdapter extends XmlAdapter<String, LocalDateTime> {
-        /**
-         * Converts the XML representation (string) of a LocalDateTime object to a LocalDateTime instance.
-         *
-         * @param value The XML representation of the LocalDateTime object.
-         * @return The unmarshalled LocalDateTime object.
-         */
-        @Override
-        public LocalDateTime unmarshal(String value) {
-            return LocalDateTime.parse(value);
-        }
-        /**
-         * Converts a LocalDateTime object to its XML representation (string).
-         *
-         * @param value The LocalDateTime object to be marshalled.
-         * @return The XML representation of the LocalDateTime object.
-         */
-        @Override
-        public String marshal(LocalDateTime value) {
-            return value.toString();
-        }
     }
 
     public ArrayList<Venue> getVenues() {
