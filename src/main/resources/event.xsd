@@ -4,7 +4,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="eventId" type="xs:int"/>
-                <xs:element name="name" type="xs:string"/>
+                <xs:element name="eventName" type="xs:string"/>
                 <xs:element name="startDate" type="xs:dateTime"/>
                 <xs:element name="endDate" type="xs:dateTime"/>
                 <xs:element name="venues">
@@ -14,7 +14,7 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="venueId" type="xs:int"/>
-                                        <xs:element name="name" type="xs:string"/>
+                                        <xs:element name="venueName" type="xs:string"/>
                                         <xs:element name="city" type="xs:string"/>
                                         <xs:element name="state" type="xs:string"/>
                                         <xs:element name="capacity" type="xs:int"/>
@@ -49,7 +49,7 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="equipmentId" type="xs:int"/>
-                                        <xs:element name="name" type="xs:string"/>
+                                        <xs:element name="equipmentName" type="xs:string"/>
                                         <xs:element name="quantity" type="xs:int"/>
                                     </xs:sequence>
                                 </xs:complexType>
@@ -64,7 +64,7 @@
                                 <xs:complexType>
                                     <xs:sequence>
                                         <xs:element name="sponsorId" type="xs:int"/>
-                                        <xs:element name="name" type="xs:string"/>
+                                        <xs:element name="sponsorName" type="xs:string"/>
                                         <xs:element name="sponsorshipAmount" type="xs:double"/>
                                     </xs:sequence>
                                 </xs:complexType>

@@ -2,11 +2,11 @@ package com.solvd.laba.database.model;
 
 public class Ticket {
     private int ticketId;
-    private int seatNumber;
+    private String seatNumber;
 
     public Ticket(){}
 
-    public Ticket(int ticketId, int seatNumber) {
+    public Ticket(int ticketId, String seatNumber) {
         this.ticketId = ticketId;
         this.seatNumber = seatNumber;
     }
@@ -19,11 +19,11 @@ public class Ticket {
         this.ticketId = ticketId;
     }
 
-    public int getSeatNumber() {
+    public String getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(String seatNumber) {
         this.seatNumber = seatNumber;
     }
 

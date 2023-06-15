@@ -1,8 +1,19 @@
 package com.solvd.laba.database.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Equipment {
+
+    @XmlElement(name="equipmentId")
     private int equipmentId;
+
+    @XmlElement(name="equipmentName")
     private String name;
+
+    @XmlElement(name="quantity")
     private int quantity;
 
     public Equipment() {}
