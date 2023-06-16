@@ -58,9 +58,11 @@ public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
 
     @Override
     protected String getUpdateValues(Venue entity) {
-        return "name='" + entity.getName() + "', city='" + entity.getCity() + "', state='"
-                + entity.getState() + "', capacity='" + entity.getCapacity() + "', website='" +
-                entity.getWebsite() + "'";
+        return NAME + "='" + entity.getName() + "', " +
+                CITY + "='" + entity.getCity() + "', " +
+                STATE + "='" + entity.getState() + "', " +
+                CAPACITY + "='" + entity.getCapacity() + "', " +
+                WEBSITE + "='" + entity.getWebsite() + "');";
     }
 
     @Override
@@ -85,8 +87,6 @@ public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
             Database.releaseConnection(connection);
         }
         return venueList;
-
-
     }
 
     /**

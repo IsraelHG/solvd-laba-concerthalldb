@@ -1,0 +1,31 @@
+{
+  "eventId" : 1,
+  "eventName" : "Event Json",
+  "startDate" : "2023-06-14T10:00:00",
+  "endDate" : "2023-06-14T12:00:00",
+  "venues" : [ {
+    "venueId" : 1,
+    "venueName" : "Venue 1",
+    "city" : "City 1",
+    "state" : "State 1",
+    "capacity" : 1000,
+    "website" : "www.venue1.com/json"
+  } ],
+  "artists" : [ {
+    "artistId" : 1,
+    "firstName" : "Artist First Name 1",
+    "lastName" : "Artist Last Name 1",
+    "genre" : "Genre 1",
+    "email" : "artist1@example.com/json"
+  } ],
+  "equipments" : [ {
+    "equipmentId" : 1,
+    "equipmentName" : "Equipment 1",
+    "quantity" : 5
+  } ],
+  "sponsors" : [ {
+    "sponsorId" : 1,
+    "sponsorName" : "Sponsor 1",
+    "sponsorshipAmount" : 1000.0
+  } ]
+}

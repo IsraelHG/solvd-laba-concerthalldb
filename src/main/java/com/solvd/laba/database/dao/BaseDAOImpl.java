@@ -7,13 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 abstract class BaseDAOImpl<T> implements BaseDAO<T> {
-    ExecutorService executorService = Executors.newCachedThreadPool(); // I will add multithreading soon.....
-
     /**
      * Maps the current row of the ResultSet to an entity object.
      *
@@ -69,19 +64,21 @@ abstract class BaseDAOImpl<T> implements BaseDAO<T> {
 
     @Override
     public int save(T t) throws SQLException {
-        return 0;
+        int id = getId(t);
+        if (id != 0) {
+            return update(t);
+        } else {
+            return insert(t);
+        }
     }
 
     @Override
     public int insert(T t) throws SQLException {
-        // TODO: SupplyAsync would be here
-
         Connection connection = Database.getConnection();
         final String sql = "INSERT INTO " + getTableName() + getInsertValues(t);
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             return statement.executeUpdate();
         } catch (SQLException e) {
-            // Handle any potential database access errors
             e.printStackTrace();
             return 0;
         } finally {
@@ -91,12 +88,32 @@ abstract class BaseDAOImpl<T> implements BaseDAO<T> {
 
     @Override
     public int update(T t) throws SQLException {
-        return 0;
+        Connection connection = Database.getConnection();
+        final String sql = "UPDATE " + getTableName() + " SET " + getUpdateValues(t) + " WHERE " + getIdColumnName() + "=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, getId(t));
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            Database.releaseConnection(connection);
+        }
     }
 
     @Override
     public int delete(T t) throws SQLException {
-        return 0;
+        Connection connection = Database.getConnection();
+        final String sql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() + "=?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, getId(t));
+            return statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            Database.releaseConnection(connection);
+        }
     }
 
     /**

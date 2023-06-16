@@ -1,5 +1,10 @@
 package com.solvd.laba.database.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.solvd.laba.database.json.annotations.serialize.LocalDateTimeDeserializer;
+import com.solvd.laba.database.json.annotations.serialize.LocalDateTimeSerializer;
 import com.solvd.laba.database.xml.annotations.adapters.LocalDateTimeAdapter;
 
 import java.time.LocalDateTime;
@@ -11,33 +16,45 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Event {
     @XmlElement(name="eventId")
+    @JsonProperty("eventId")
     private int eventId;
 
     @XmlElement(name="eventName")
+    @JsonProperty("eventName")
     private String name;
 
     @XmlElement(name="startDate")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    @JsonProperty("startDate")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime startDate;
 
     @XmlElement(name="endDate")
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    @JsonProperty("endDate")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime endDate;
 
     @XmlElement(name = "venue")
     @XmlElementWrapper(name = "venues")
+    @JsonProperty("venues")
     private ArrayList<Venue> venues = new ArrayList<>();
 
     @XmlElement(name = "artist")
     @XmlElementWrapper(name = "artists")
+    @JsonProperty("artists")
     private ArrayList<Artist> artists = new ArrayList<>();
 
     @XmlElement(name = "equipment")
     @XmlElementWrapper(name = "equipments")
+    @JsonProperty("equipments")
     private ArrayList<Equipment> equipments = new ArrayList<>();
 
     @XmlElement(name = "sponsor")
     @XmlElementWrapper(name = "sponsors")
+    @JsonProperty("sponsors")
     private ArrayList<Sponsor> sponsors = new ArrayList<>();
 
     public Event() {}

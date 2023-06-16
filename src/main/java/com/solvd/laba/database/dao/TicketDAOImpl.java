@@ -43,7 +43,6 @@ public class TicketDAOImpl extends BaseDAOImpl<Ticket> implements TicketDAO {
 
     @Override
     protected String getUpdateValues(Ticket entity) {
-        return TICKET_ID + "='" + entity.getTicketId() + "', " +
-                SEAT_NUMBER + "='" + entity.getSeatNumber() + "'";
+        return SEAT_NUMBER + "='" + entity.getSeatNumber() + "'";
     }
 }

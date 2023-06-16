@@ -47,8 +47,10 @@ public class ArtistDAOImpl extends BaseDAOImpl<Artist> implements ArtistDAO {
 
     @Override
     protected String getUpdateValues(Artist entity) {
-        return "artist_id='" + entity.getArtistId() + "', first_name='" + entity.getFirstName() +
-                "', last_name='" + entity.getLastName() + "', genre='" + entity.getGenre() +
-                "', email=" + entity.getEmail() + "'";
+        return ARTIST_ID + "='" + entity.getArtistId() + "', " +
+                FIRST_NAME + "='" + entity.getFirstName() + "', " +
+                LAST_NAME + "='" + entity.getLastName() + "', " +
+                GENRE + "='" + entity.getGenre() + "', " +
+                EMAIL + "='" + entity.getEmail() + "');";
     }
 }

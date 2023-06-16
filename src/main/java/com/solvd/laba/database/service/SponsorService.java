@@ -39,4 +39,24 @@ public class SponsorService {
     public void setSponsor(Sponsor sponsor) throws SQLException {
         sponsorDAO.insert(sponsor);
     }
+
+    /**
+     * Saves a sponsor object in the database. This method is used for either inserting a new sponsor or updating an existing one.
+     *
+     * @param sponsor the sponsor object to save
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void saveSponsor(Sponsor sponsor) throws SQLException {
+        sponsorDAO.save(sponsor);
+    }
+
+    /**
+     * Deletes a sponsor object from the database.
+     *
+     * @param sponsor the sponsor object to delete
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void deleteSponsor(Sponsor sponsor) throws SQLException {
+        sponsorDAO.delete(sponsor);
+    }
 }

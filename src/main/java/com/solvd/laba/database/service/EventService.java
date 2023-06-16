@@ -49,4 +49,24 @@ public class EventService {
         eventDAO.insert(event);
     }
 
+    /**
+     * Saves an event object in the database. This method is used for either inserting a new event or updating an existing one.
+     *
+     * @param event the event object to save
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void saveEvent(Event event) throws SQLException {
+        eventDAO.save(event);
+    }
+
+    /**
+     * Deletes an event object from the database.
+     *
+     * @param event the event object to delete
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void deleteEvent(Event event) throws SQLException {
+        eventDAO.delete(event);
+    }
+
 }
