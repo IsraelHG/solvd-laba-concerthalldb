@@ -2,6 +2,8 @@ package com.solvd.laba.database.model;
 
 import com.solvd.laba.database.enums.Gender;
 
+import java.util.ArrayList;
+
 public class Audience {
     private int audienceId;
     private String firstName;
@@ -9,6 +11,8 @@ public class Audience {
     private int age;
     private Gender gender;
     private String email;
+    private ArrayList<Booking> bookings = new ArrayList<>();
+    private ArrayList<Feedback> feedbacks = new ArrayList<>();
 
     public Audience() {}
     public Audience(int audienceId, String firstName, String lastName, int age, Gender gender, String email) {
@@ -68,6 +72,22 @@ public class Audience {
         this.email = email;
     }
 
+    public ArrayList<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(ArrayList<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+    public ArrayList<Feedback> getFeedbacks() {
+        return feedbacks;
+    }
+
+    public void setFeedbacks(ArrayList<Feedback> feedbacks) {
+        this.feedbacks = feedbacks;
+    }
+
     @Override
     public String toString() {
         return "Audience{" +
@@ -77,6 +97,8 @@ public class Audience {
                 ", age=" + age +
                 ", gender=" + gender +
                 ", email='" + email + '\'' +
+                ", bookings=" + bookings +
+                ", feedbacks=" + feedbacks +
                 '}';
     }
 }

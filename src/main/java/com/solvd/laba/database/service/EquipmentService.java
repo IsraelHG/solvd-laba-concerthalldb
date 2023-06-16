@@ -40,4 +40,23 @@ public class EquipmentService {
         equipmentDAO.insert(equipment);
     }
 
+    /**
+     * Saves an equipment object in the database. This method is used for either inserting a new equipment or updating an existing one.
+     *
+     * @param equipment the equipment object to save
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void saveEquipment(Equipment equipment) throws SQLException {
+        equipmentDAO.save(equipment);
+    }
+
+    /**
+     * Deletes an equipment object from the database.
+     *
+     * @param equipment the equipment object to delete
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void deleteEquipment(Equipment equipment) throws SQLException {
+        equipmentDAO.delete(equipment);
+    }
 }

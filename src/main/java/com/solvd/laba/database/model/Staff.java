@@ -1,10 +1,13 @@
 package com.solvd.laba.database.model;
 
+import java.util.ArrayList;
+
 public class Staff {
     private int staffId;
     private String firstName;
     private String lastName;
     private String role;
+    private ArrayList<Booking> bookings = new ArrayList<>();
 
     public Staff() {}
 
@@ -47,6 +50,14 @@ public class Staff {
         this.role = role;
     }
 
+    public ArrayList<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(ArrayList<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     @Override
     public String toString() {
         return "Staff{" +
@@ -54,6 +65,7 @@ public class Staff {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", role='" + role + '\'' +
+                ", bookings=" + bookings +
                 '}';
     }
 }

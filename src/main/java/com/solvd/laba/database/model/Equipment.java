@@ -1,5 +1,7 @@
 package com.solvd.laba.database.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -8,12 +10,15 @@ import javax.xml.bind.annotation.XmlElement;
 public class Equipment {
 
     @XmlElement(name="equipmentId")
+    @JsonProperty("equipmentId")
     private int equipmentId;
 
     @XmlElement(name="equipmentName")
+    @JsonProperty("equipmentName")
     private String name;
 
     @XmlElement(name="quantity")
+    @JsonProperty("quantity")
     private int quantity;
 
     public Equipment() {}

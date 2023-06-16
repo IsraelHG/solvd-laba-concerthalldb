@@ -1,30 +1,37 @@
 package com.solvd.laba.database.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.SQLException;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Venue {
     @XmlElement(name="venueId")
+    @JsonProperty("venueId")
     private int venueId;
 
     @XmlElement(name="venueName")
+    @JsonProperty("venueName")
     private String name;
 
     @XmlElement(name="city")
+    @JsonProperty("city")
     private String city;
 
     @XmlElement(name="state")
+    @JsonProperty("state")
     private String state;
 
     @XmlElement(name="capacity")
+    @JsonProperty("capacity")
     private int capacity;
 
     @XmlElement(name="website")
+    @JsonProperty("website")
     private String website;
 
     public Venue() {}

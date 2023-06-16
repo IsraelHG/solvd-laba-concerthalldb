@@ -1,9 +1,9 @@
 package com.solvd.laba.database.enums;
 
 public enum Gender {
-    MALE("M"),
-    FEMALE("F"),
-    OTHER("OTHER");
+    MALE("Male"),
+    FEMALE("Female"),
+    OTHER("Other");
 
     Gender(String abbreviation) {
     }

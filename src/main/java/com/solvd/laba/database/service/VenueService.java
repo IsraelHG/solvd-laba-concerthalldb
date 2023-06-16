@@ -41,4 +41,23 @@ public class VenueService {
         venueDAO.insert(venue);
     }
 
+    /**
+     * Saves a venue object in the database. This method is used for either inserting a new venue or updating an existing one.
+     *
+     * @param venue the venue object to save
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void saveVenue(Venue venue) throws SQLException {
+        venueDAO.save(venue);
+    }
+
+    /**
+     * Deletes a venue object from the database.
+     *
+     * @param venue the venue object to delete
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void deleteVenue(Venue venue) throws SQLException {
+        venueDAO.delete(venue);
+    }
 }

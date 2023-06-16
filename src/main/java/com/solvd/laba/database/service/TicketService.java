@@ -39,4 +39,24 @@ public class TicketService {
     public void setTicket(Ticket ticket) throws SQLException {
         ticketDAO.insert(ticket);
     }
+
+    /**
+     * Saves a ticket object in the database. This method is used for either inserting a new ticket or updating an existing one.
+     *
+     * @param ticket the ticket object to save
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void saveTicket(Ticket ticket) throws SQLException {
+        ticketDAO.save(ticket);
+    }
+
+    /**
+     * Deletes a ticket object from the database.
+     *
+     * @param ticket the ticket object to delete
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void deleteTicket(Ticket ticket) throws SQLException {
+        ticketDAO.delete(ticket);
+    }
 }

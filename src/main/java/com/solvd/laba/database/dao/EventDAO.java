@@ -10,4 +10,5 @@ import java.util.ArrayList;
  * events in the database.
  */
 public interface EventDAO extends BaseDAO<Event> {
+    //Event fetchEventForBooking(int bookingId) throws SQLException;
 }

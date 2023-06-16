@@ -25,6 +25,10 @@ public class Main {
         EquipmentService equipmentService = new EquipmentService();
         ArtistService artistService = new ArtistService();
         TicketService ticketService = new TicketService();
+        StaffService staffService = new StaffService();
+        AudienceService audienceService = new AudienceService();
+        BookingService bookingService = new BookingService();
+        FeedbackService feedbackService = new FeedbackService();
 
         Venue venue1;
         Event event1;
@@ -32,6 +36,10 @@ public class Main {
         Equipment equipment1;
         Artist artist1;
         Ticket ticket1;
+        Staff staff1;
+        Audience audience1;
+        Booking booking1;
+        Feedback feedback1;
 
         CompletableFuture<Venue> venueFuture = CompletableFuture.supplyAsync(() -> {
             try {
@@ -99,6 +107,50 @@ public class Main {
             }
         }, executorService);
 
+        CompletableFuture<Staff> staffFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                Staff staff = staffService.getStaff(1);
+                LOGGER.info(staff);
+                return staff;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }, executorService);
+
+        CompletableFuture<Audience> audienceFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                Audience audience = audienceService.getAudience(1);
+                LOGGER.info(audience);
+                return audience;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }, executorService);
+
+        CompletableFuture<Booking> bookingFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                Booking booking = bookingService.getBooking(1);
+                LOGGER.info(booking);
+                return booking;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }, executorService);
+
+        CompletableFuture<Feedback> feedbackFuture = CompletableFuture.supplyAsync(() -> {
+            try {
+                Feedback feedback = feedbackService.getFeedback(1);
+                LOGGER.info(feedback);
+                return feedback;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }, executorService);
+
         LOGGER.info("All threads are running: " + Thread.currentThread().getName());
 
         // Retrieves completed futures.
@@ -109,20 +161,14 @@ public class Main {
             artist1 = artistFuture.get();
             equipment1 = equipmentFuture.get();
             ticket1 = ticketFuture.get();
+            staff1 = staffFuture.get();
+            audience1 = audienceFuture.get();
+            booking1 = bookingFuture.get();
+            feedback1 = feedbackFuture.get();
 
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
-//        LOGGER.info(venue1);
-//        LOGGER.info(event1);
-//        LOGGER.info(sponsor1);
-//        LOGGER.info(artist1);
-//        LOGGER.info(equipment1);
-//        LOGGER.info(ticket1);
-
-        // Shutdown the executor service after all tasks are completed
-        LOGGER.warn("Executor services shutting down...");
-        executorService.shutdown();
 
 //        Testing the setEntity() from my services
 //        --------------------------------------------
@@ -132,10 +178,15 @@ public class Main {
 //        Sponsor sponsorToAdd = new Sponsor(100, "New Company", 20000.00);
 //        Venue venueToAdd = new Venue(100, "New Venue", "New City", "New State", 1000, "https://www.newvenue.com/");
 //        Ticket ticketToAdd = new Ticket(100, "6000");
+//        Booking bookingToAdd = new Booking(100, LocalDateTime.now(), event1, audience1, staff1, ticket1);
 //        try {
-//            ticketService.setTicket(ticketToAdd);
+//            bookingService.setBooking(bookingToAdd);
 //        } catch (SQLException e) {
 //            e.printStackTrace();
 //        }
+
+        // Shutdown the executor service after all tasks are completed
+        LOGGER.warn("Executor services shutting down...");
+        executorService.shutdown();
     }
 }

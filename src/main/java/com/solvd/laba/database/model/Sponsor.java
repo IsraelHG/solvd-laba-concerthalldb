@@ -1,8 +1,15 @@
 package com.solvd.laba.database.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Sponsor {
+    @JsonProperty("sponsorId")
     private int sponsorId;
+
+    @JsonProperty("sponsorName")
     private String name;
+
+    @JsonProperty("sponsorshipAmount")
     private double sponsorshipAmount;
 
     public Sponsor() {}

@@ -38,4 +38,26 @@ public class ArtistService {
     public void setArist(Artist artist) throws SQLException {
         artistDAO.insert(artist);
     }
+
+    /**
+     * Saves an artist object in the database. This method is used for either inserting a new artist or updating an existing one.
+     *
+     * @param artist the artist object to save
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void saveArtist(Artist artist) throws SQLException {
+        artistDAO.save(artist);
+    }
+
+    /**
+     * Deletes an artist object from the database.
+     *
+     * @param artist the artist object to delete
+     * @throws SQLException if an error occurs while accessing the database
+     */
+    public void deleteArtist(Artist artist) throws SQLException {
+        artistDAO.delete(artist);
+    }
+
+
 }
