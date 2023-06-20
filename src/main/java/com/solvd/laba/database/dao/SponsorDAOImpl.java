@@ -9,7 +9,7 @@ public class SponsorDAOImpl extends BaseDAOImpl<Sponsor> implements SponsorDAO {
     private static final String SPONSOR_ID = "sponsor_id";
     private static final String NAME = "name";
     private static final String SPONSORSHIP_AMOUNT = "sponsorship_amount";
-    private static final String TABLE_NAME = "Sponsors";
+    private static final String TABLE_NAME = "sponsors";
     @Override
     protected Sponsor mapRow(ResultSet resultSet) throws SQLException {
         Sponsor sponsor = new Sponsor();

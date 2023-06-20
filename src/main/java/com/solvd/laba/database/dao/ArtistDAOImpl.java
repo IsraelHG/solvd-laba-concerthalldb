@@ -11,7 +11,7 @@ public class ArtistDAOImpl extends BaseDAOImpl<Artist> implements ArtistDAO {
     private static final String LAST_NAME = "last_name";
     private static final String GENRE = "genre";
     private static final String EMAIL = "email";
-    private static final String TABLE_NAME = "Artists";
+    private static final String TABLE_NAME = "artists";
     @Override
     protected Artist mapRow(ResultSet resultSet) throws SQLException {
         Artist artist = new Artist();

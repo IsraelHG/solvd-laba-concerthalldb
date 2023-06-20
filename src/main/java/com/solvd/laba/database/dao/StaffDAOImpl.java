@@ -14,7 +14,7 @@ public class StaffDAOImpl extends BaseDAOImpl<Staff> implements StaffDAO {
     private static final String FIRST_NAME = "first_name";
     private static final String LAST_NAME = "last_name";
     private static final String ROLE = "role";
-    private static final String TABLE_NAME = "Staffs";
+    private static final String TABLE_NAME = "staffs";
 
     @Override
     protected Staff mapRow(ResultSet resultSet) throws SQLException {

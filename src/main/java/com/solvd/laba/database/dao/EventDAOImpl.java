@@ -16,7 +16,7 @@ public class EventDAOImpl extends BaseDAOImpl<Event> implements EventDAO {
     private static final String NAME = "name";
     private static final String START_DATE = "start_date";
     private static final String END_DATE = "end_date";
-    private static final String TABLE_NAME = "Events";
+    private static final String TABLE_NAME = "events";
 
     @Override
     protected Event mapRow(ResultSet resultSet) throws SQLException {

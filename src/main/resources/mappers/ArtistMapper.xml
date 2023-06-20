@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.ArtistMapper">
+    <resultMap id="artistResultMap" type="com.solvd.laba.database.model.Artist" autoMapping="false">
+        <!--property - name in model || column - name in DB -->
+        <id property="artistId" column="artist_id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="genre" column="genre"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="selectArtistById" resultMap="artistResultMap">
+        SELECT * FROM artists WHERE artist_id = #{id}
+    </select>
+
+    <!-- Insert an artist -->
+    <insert id="insertArtist" parameterType="com.solvd.laba.database.model.Artist">
+        INSERT INTO artists (first_name, last_name, genre, email)
+        VALUES (#{firstName}, #{lastName}, #{genre}, #{email})
+    </insert>
+
+    <!-- Update an artist -->
+    <update id="updateArtist" parameterType="com.solvd.laba.database.model.Artist">
+        UPDATE artists SET
+        first_name = #{firstName},
+        last_name = #{lastName},
+        genre = #{genre},
+        email = #{email}
+        WHERE artist_id = #{artistId}
+    </update>
+
+    <!-- Delete an artist by ID -->
+    <delete id="deleteArtistById" parameterType="int">
+        DELETE FROM artists
+        WHERE artist_id = #{id}
+    </delete>
+
+    <!-- Select an artist by name -->
+    <select id="selectArtistByName" resultMap="artistResultMap">
+        SELECT * FROM artists WHERE first_name = #{name}
+    </select>
+
+    <!-- Select artists by genre -->
+    <select id="selectArtistsByGenre" resultMap="artistResultMap">
+        SELECT * FROM artists WHERE genre = #{genre}
+    </select>
+
+    <!-- Count all artists -->
+    <select id="countArtists" resultType="int">
+        SELECT COUNT(*) FROM artists
+    </select>
+
+    <!-- select all artists -->
+    <select id="selectAllArtists" resultMap="artistResultMap">
+        SELECT * FROM artists
+    </select>
+
+    <!-- Get the total number of concerts each artist has performed -->
+    <select id="getArtistConcertCounts" resultType="java.util.Map">
+        SELECT a.first_name, COUNT(*) AS total_concerts
+        FROM events_has_artists ea
+        JOIN artists a ON ea.artist_id = a.artist_id
+        GROUP BY a.artist_id
+    </select>
+</mapper>

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class TicketDAOImpl extends BaseDAOImpl<Ticket> implements TicketDAO {
     private static final String TICKET_ID = "ticket_id";
     private static final String SEAT_NUMBER = "seat_number";
-    private static final String TABLE_NUMBER = "Tickets";
+    private static final String TABLE_NUMBER = "tickets";
     @Override
     protected Ticket mapRow(ResultSet resultSet) throws SQLException {
         Ticket ticket = new Ticket();

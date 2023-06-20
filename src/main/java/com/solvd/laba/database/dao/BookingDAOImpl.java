@@ -16,7 +16,7 @@ public class BookingDAOImpl extends BaseDAOImpl<Booking> implements BookingDAO {
     private static final String FK_AUDIENCE_ID = "audience_id";
     private static final String FK_STAFF_ID = "staff_id";
     private static final String FK_TICKET_ID = "ticket_id";
-    private static final String TABLE_NAME = "Bookings";
+    private static final String TABLE_NAME = "bookings";
 
     @Override
     protected Booking mapRow(ResultSet resultSet) throws SQLException {
