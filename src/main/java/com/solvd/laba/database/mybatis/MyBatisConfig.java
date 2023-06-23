@@ -14,7 +14,7 @@ import java.util.Properties;
 public class MyBatisConfig {
     public static final Logger LOGGER = LogManager.getLogger(MyBatisConfig.class.getName());
     private static final String MYBATIS_CONFIG_FILE = "mybatis-config.xml";
-    private static final String DB_CREDENTIALS_FILE = "src/main/resources/mybatisdb.properties";
+    private static final String DB_CREDENTIALS_FILE = "src/main/resources/db.properties";
     private static volatile SqlSessionFactory sqlSessionFactory;
 
     private static final Properties props = new Properties();

@@ -2,6 +2,7 @@ package com.solvd.laba.database.mapperService;
 
 import com.solvd.laba.database.mapper.ArtistMapper;
 import com.solvd.laba.database.model.Artist;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,11 +10,11 @@ import java.util.Map;
 public class ArtistService {
     private final ArtistMapper artistMapper;
 
-    public ArtistService(ArtistMapper artistMapper) {
-        this.artistMapper = artistMapper;
+    public ArtistService(SqlSessionFactory sqlSessionFactory) {
+        this.artistMapper = sqlSessionFactory.openSession().getMapper(ArtistMapper.class);
     }
 
-    public Artist getArtistById(int id) throws SQLException {
+    public Artist getArtistById(int id) {
         return artistMapper.selectArtistById(id);
     }
 

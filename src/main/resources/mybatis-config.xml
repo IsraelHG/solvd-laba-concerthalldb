@@ -2,19 +2,31 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+    <typeHandlers>
+        <typeHandler handler="com.solvd.laba.database.enums.GenderTypeHandler" />
+    </typeHandlers>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="${driver}"/>
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
+                <property name="driver" value="${db.driver}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.user}"/>
+                <property name="password" value="${db.password}"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
         <!-- TODO: Include the mapper files for your DAO interfaces -->
         <mapper resource="mappers/ArtistMapper.xml"/>
+        <mapper resource="mappers/EventMapper.xml"/>
+        <mapper resource="mappers/SponsorMapper.xml"/>
+        <mapper resource="mappers/EquipmentMapper.xml"/>
+        <mapper resource="mappers/VenueMapper.xml"/>
+        <mapper resource="mappers/StaffMapper.xml"/>
+        <mapper resource="mappers/TicketMapper.xml"/>
+        <mapper resource="mappers/AudienceMapper.xml"/>
+<!--        <mapper resource="mappers/BookingMapper.xml"/>-->
+        <mapper resource="mappers/FeedbackMapper.xml"/>
     </mappers>
 </configuration>

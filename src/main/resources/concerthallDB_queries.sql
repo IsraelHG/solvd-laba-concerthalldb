@@ -71,6 +71,7 @@ INSERT INTO `israel_concerthalldb`.`events_has_equipments` (`event_id`, `equipme
 VALUES (1, 1),
        (2, 2),
        (3, 3);
+INSERT INTO `israel_concerthalldb`.`events_has_equipments` (`event_id`, `equipment_id`) VALUES ('1', '2');
 INSERT INTO `israel_concerthalldb`.`feedbacks` (`event_id`, `audience_id`, `rating`)
 VALUES (1, 1, 5),
        (2, 2, 4),

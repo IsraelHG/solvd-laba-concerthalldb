@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.AudienceMapper">
+
+    <resultMap id="audienceResultMap" type="com.solvd.laba.database.model.Audience" autoMapping="false">
+        <!--property - name in model || column - name in DB -->
+        <id property="audienceId" column="audience_id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="age" column="age"/>
+        <result property="gender" column="gender" typeHandler="com.solvd.laba.database.enums.GenderTypeHandler"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="selectAudienceById" resultMap="audienceResultMap">
+        SELECT * FROM audiences WHERE audience_id = #{id}
+    </select>
+
+    <!-- Insert an audience -->
+    <insert id="insertAudience" parameterType="com.solvd.laba.database.model.Audience">
+        INSERT INTO audiences (first_name, last_name, age, gender, email)
+        VALUES (#{firstName}, #{lastName}, #{age}, #{gender}, #{email})
+    </insert>
+
+    <!-- Update an audience -->
+    <update id="updateAudience" parameterType="com.solvd.laba.database.model.Audience">
+        UPDATE audiences SET
+        firstName = #{first_name},
+        lastName = #{last_name},
+        age = #{age},
+        gender = #{gender},
+        email = #{email},
+        WHERE audience_id = #{audienceId}
+    </update>
+
+    <!-- Delete an audience by ID -->
+    <delete id="deleteAudienceById" parameterType="int">
+        DELETE FROM audiences
+        WHERE audience_id = #{id}
+    </delete>
+
+</mapper>

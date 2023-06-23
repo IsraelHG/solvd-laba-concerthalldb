@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.TicketMapper">
+    <resultMap id="ticketResultMap" type="com.solvd.laba.database.model.Ticket" autoMapping="false">
+        <!--property - name in model || column - name in DB -->
+        <id property="ticketId" column="ticket_id"/>
+        <result property="seatNumber" column="seat_number"/>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="selectTicketById" resultMap="ticketResultMap">
+        SELECT * FROM tickets WHERE ticket_id = #{id}
+    </select>
+
+    <!-- Insert a ticket -->
+    <insert id="insertTicket" parameterType="com.solvd.laba.database.model.Ticket">
+        INSERT INTO tickets (seat_number)
+        VALUES (#{seatNumber})
+    </insert>
+
+    <!-- Update a ticket -->
+    <update id="updateTicket" parameterType="com.solvd.laba.database.model.Ticket">
+        UPDATE tickets SET
+        seatNumber = #{seat_number},
+        WHERE ticket_id = #{ticketId}
+    </update>
+
+    <!-- Delete a ticket by ID -->
+    <delete id="deleteTicketById" parameterType="int">
+        DELETE FROM tickets
+        WHERE ticket_id = #{id}
+    </delete>
+
+</mapper>

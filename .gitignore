@@ -14,7 +14,6 @@ logs
 debugS
 target
 src/main/resources/db.properties
-src/main/resources/mybatisdb.properties
 
 
 ### Eclipse ###

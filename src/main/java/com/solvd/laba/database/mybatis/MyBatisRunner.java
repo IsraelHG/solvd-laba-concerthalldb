@@ -1,9 +1,9 @@
 package com.solvd.laba.database.mybatis;
 
-import com.solvd.laba.database.mapper.ArtistMapper;
-import com.solvd.laba.database.mapperService.ArtistService;
-import com.solvd.laba.database.model.Artist;
-import org.apache.ibatis.session.SqlSession;
+import com.solvd.laba.database.mapperService.*;
+import com.solvd.laba.database.model.*;
+//import com.solvd.laba.database.mapperService.BookingService;
+import com.solvd.laba.database.mapperService.FeedbackService;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,55 +18,39 @@ public class MyBatisRunner {
         // Get the SqlSessionFactory from MyBatisConfig
         SqlSessionFactory sqlSessionFactory = MyBatisConfig.getSqlSessionFactory();
 
-        // Open an SqlSession
-        try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            ArtistMapper artistMapper = sqlSession.getMapper(ArtistMapper.class);
-            ArtistService artistService = new ArtistService(artistMapper);
+        ArtistService artistService = new ArtistService(sqlSessionFactory);
+        EventService eventService = new EventService(sqlSessionFactory);
+        SponsorService sponsorService = new SponsorService(sqlSessionFactory);
+        EquipmentService equipmentService = new EquipmentService(sqlSessionFactory);
+        VenueService venueService = new VenueService(sqlSessionFactory);
+        StaffService staffService = new StaffService(sqlSessionFactory);
+        TicketService ticketService = new TicketService(sqlSessionFactory);
+        AudienceService audienceService = new AudienceService(sqlSessionFactory);
+        //BookingService bookingService = new BookingService(sqlSessionFactory);
+        FeedbackService feedbackService = new FeedbackService(sqlSessionFactory);
 
-            // get - select by id
-            Artist artist = artistService.getArtistById(1);
-            LOGGER.info("Artist FROM DB: " + artist);
+        // GET - Select by id
+        Artist artistFromDb = artistService.getArtistById(1);
+        Event eventFromDb = eventService.getEventById(1);
+        Sponsor sponsorFromDb = sponsorService.getSponsorById(1);
+        Equipment equipmentFromDb = equipmentService.getEquipmentById(1);
+        Venue venueFromDb = venueService.getVenueById(1);
+        Staff staffFromDb = staffService.getStaffById(1);
+        Ticket ticketFromDb = ticketService.getTicketById(1);
+        Audience audienceFromDb = audienceService.getAudienceById(1);
+        //Booking bookingFromDb = bookingService.getBookingById(1);
+        Feedback feedbackFromDb = feedbackService.getFeedbackById(1);
 
-            // Insert
-            //Artist artist1 = new Artist(100, "Artist", "Mapper", "Mapping", "artist.mapper@gmail.com");
-            //artistService.setArtist(artist1);
 
-            // Update
-            //artist1.setArtistId(11);
-            //artist1.setEmail("artist.new.mapper@gmail.com");
-            //artistService.updateArtist(artist1);
-
-            // delete
-            //artistService.deleteArtistById(7);
-
-            // selectArtistByName()
-            String name = "Beyonce";
-            List<Artist> artistsByName = artistService.getArtistsByName(name);
-            LOGGER.info("Artists with the name " + name + ":");
-            for (Artist a : artistsByName) {
-                LOGGER.info(a);
-            }
-
-            // selectArtistsByGenre() method
-            String genre = "Rock";
-            List<Artist> artistsByGenre = artistService.getArtistsByGenre(genre);
-            LOGGER.info("Artists in the genre " + genre + ":");
-            for (Artist a : artistsByGenre) {
-                LOGGER.info(a);
-            }
-
-            // getArtistConcertCounts() method
-            List<Map<String, Object>> concertCounts = artistService.getArtistConcertCounts();
-
-            // Process the results
-            for (Map<String, Object> concertCount : concertCounts) {
-                String artistName = (String) concertCount.get("first_name");
-                Long totalConcerts = (Long) concertCount.get("total_concerts");
-
-                LOGGER.info("Artist: " + artistName + ", Total Concerts: " + totalConcerts);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        LOGGER.info("Artist FROM DB: " + artistFromDb);
+        LOGGER.info("Event FROM DB: " + eventFromDb);
+        LOGGER.info("Sponsor FROM DB: " + sponsorFromDb);
+        LOGGER.info("Equipment FROM DB: " + equipmentFromDb);
+        LOGGER.info("Venue FROM DB: " + venueFromDb);
+        LOGGER.info("Staff FROM DB: " + staffFromDb);
+        LOGGER.info("Ticket FROM DB: " + ticketFromDb);
+        LOGGER.info("Audience FROM DB: " + audienceFromDb);
+        //LOGGER.info("Booking FROM DB: " + bookingFromDb);
+        LOGGER.info("Feedback FROM DB: " + feedbackFromDb);
     }
 }

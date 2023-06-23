@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.FeedbackMapper">
+    <resultMap id="feedbackResultMap" type="com.solvd.laba.database.model.Feedback" autoMapping="false">
+        <!-- Property - name in model || Column - name in DB -->
+        <id property="feedbackId" column="feedback_id"/>
+        <result property="rating" column="rating"/>
+
+        <!-- Association mappings -->
+        <association property="event" javaType="com.solvd.laba.database.model.Event">
+            <id property="eventId" column="event_id"/>
+            <result property="name" column="name"/>
+            <result property="startDate" column="start_date"/>
+            <result property="endDate" column="end_date"/>
+            <!-- Maybe collection????? -->
+        </association>
+
+        <association property="audience" javaType="com.solvd.laba.database.model.Audience">
+            <id property="audienceId" column="audience_id"/>
+            <result property="firstName" column="first_name"/>
+            <result property="lastName" column="last_name"/>
+            <result property="age" column="age"/>
+            <result property="gender" column="gender" typeHandler="com.solvd.laba.database.enums.GenderTypeHandler"/>
+            <result property="email" column="email"/>
+        </association>
+    </resultMap>
+
+    <!-- Wrapped queries -->
+    <select id="selectFeedbackById" resultMap="feedbackResultMap">
+        SELECT f.feedback_id, f.rating,
+        e.event_id, e.name, e.start_date, e.end_date,
+        a.audience_id, a.first_name, a.last_name, a.age, a.gender, a.email
+        FROM feedbacks f
+        JOIN events e ON f.event_id = e.event_id
+        JOIN audiences a ON f.audience_id = a.audience_id
+        WHERE f.feedback_id = #{id}
+    </select>
+
+    <!-- Insert a feedback -->
+    <insert id="insertFeedback" parameterType="com.solvd.laba.database.model.Feedback">
+        INSERT INTO feedbacks (event_id, audience_id, rating)
+        VALUES (#{event.eventId}, #{audience.audienceId}, #{rating})
+    </insert>
+
+    <!-- Update a feedback -->
+    <update id="updateFeedback" parameterType="com.solvd.laba.database.model.Feedback">
+        UPDATE feedbacks
+        SET event_id = #{event.eventId},
+        audience_id = #{audience.audienceId},
+        rating = #{rating}
+        WHERE feedback_id = #{feedbackId}
+    </update>
+
+    <!-- Delete a feedback by ID -->
+    <delete id="deleteFeedbackById" parameterType="int">
+        DELETE FROM feedbacks
+        WHERE feedback_id = #{id}
+    </delete>
+
+</mapper>

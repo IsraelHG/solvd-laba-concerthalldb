@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.VenueMapper">
+    <resultMap id="venueResultMap" type="com.solvd.laba.database.model.Venue" autoMapping="false">
+        <!--property - name in model || column - name in DB -->
+        <id property="venueId" column="venue_id"/>
+        <result property="name" column="name"/>
+        <result property="city" column="city"/>
+        <result property="state" column="state"/>
+        <result property="capacity" column="capacity"/>
+        <result property="website" column="website"/>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="selectVenueById" resultMap="venueResultMap">
+        SELECT * FROM venues WHERE venue_id = #{id}
+    </select>
+
+    <!-- Insert an equipment -->
+    <insert id="insertVenue" parameterType="com.solvd.laba.database.model.Venue">
+        INSERT INTO venues (name, city, state, capacity, website)
+        VALUES (#{name}, #{city}, #{state}, #{capacity}, #{website})
+    </insert>
+
+    <!-- Update an equipment -->
+    <update id="updateVenue" parameterType="com.solvd.laba.database.model.Venue">
+        UPDATE venues SET
+        name = #{name},
+        city = #{city},
+        state = #{state},
+        capacity = #{capacity},
+        website = #{website},
+        WHERE venue_id = #{venueId}
+    </update>
+
+    <!-- Delete equipment by ID -->
+    <delete id="deleteVenueById" parameterType="int">
+        DELETE FROM venues
+        WHERE venue_id = #{id}
+    </delete>
+
+</mapper>
