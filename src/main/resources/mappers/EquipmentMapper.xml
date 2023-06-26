@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.EquipmentMapper">
+    <resultMap id="equipmentResultMap" type="com.solvd.laba.database.model.Equipment" autoMapping="false">
+        <!--property - name in model || column - name in DB -->
+        <id property="equipmentId" column="equipment_id"/>
+        <result property="name" column="name"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="selectEquipmentById" resultMap="equipmentResultMap">
+        SELECT * FROM equipments WHERE equipment_id = #{id}
+    </select>
+
+    <!-- Insert an equipment -->
+    <insert id="insertEquipment" parameterType="com.solvd.laba.database.model.Equipment">
+        INSERT INTO equipments (name, quantity)
+        VALUES (#{name}, #{quantity})
+    </insert>
+
+    <!-- Update an equipment -->
+    <update id="updateEquipment" parameterType="com.solvd.laba.database.model.Equipment">
+        UPDATE equipments SET
+        name = #{name},
+        quantity = #{quantity},
+        WHERE equipment_id = #{equipmentId}
+    </update>
+
+    <!-- Delete equipment by ID -->
+    <delete id="deleteEquipmentById" parameterType="int">
+        DELETE FROM equipments
+        WHERE equipment_id = #{id}
+    </delete>
+
+</mapper>

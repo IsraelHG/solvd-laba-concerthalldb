@@ -17,7 +17,7 @@ public class AudienceDAOImpl extends BaseDAOImpl<Audience> implements AudienceDA
     private static final String AGE = "age";
     private static final String GENDER = "gender";
     private static final String EMAIL = "email";
-    private static final String TABlE_NAME = "Audiences";
+    private static final String TABlE_NAME = "audiences";
     @Override
     protected Audience mapRow(ResultSet resultSet) throws SQLException {
         Audience audience = new Audience();

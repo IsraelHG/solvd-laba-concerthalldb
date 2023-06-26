@@ -20,7 +20,7 @@ public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
     private static final String STATE = "state";
     private static final String CAPACITY = "capacity";
     private static final String WEBSITE = "website";
-    private static final String TABLE_NAME = "Venues";
+    private static final String TABLE_NAME = "venues";
 
     @Override
     protected Venue mapRow(ResultSet resultSet) throws SQLException {

@@ -17,7 +17,7 @@ public class FeedbackDAOImpl extends BaseDAOImpl<Feedback> implements FeedbackDA
     private static final String FK_EVENT_ID = "event_id";
     private static final String FK_AUDIENCE_ID = "audience_id";
     private static final String RATING = "rating";
-    private static final String TABLE_NAME = "Feedbacks";
+    private static final String TABLE_NAME = "feedbacks";
     @Override
     protected Feedback mapRow(ResultSet resultSet) throws SQLException {
         Feedback feedback = new Feedback();

@@ -9,7 +9,7 @@ public class EquipmentDAOImpl extends BaseDAOImpl<Equipment> implements Equipmen
     private static final String EQUIPMENT_ID = "equipment_id";
     private static final String NAME = "name";
     private static final String QUANTITY = "quantity";
-    private static final String TABLE_NAME = "Equipments";
+    private static final String TABLE_NAME = "equipments";
     @Override
     protected Equipment mapRow(ResultSet resultSet) throws SQLException {
          Equipment equipment = new Equipment();

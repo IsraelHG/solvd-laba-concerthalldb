@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.EventMapper">
+    <!-- Result map for mapping query results to Event objects -->
+    <resultMap id="eventResultMap" type="com.solvd.laba.database.model.Event" autoMapping="false">
+        <id property="eventId" column="event_id"/>
+        <result property="name" column="event_name"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+
+        <!-- Mapping for the venues -->
+        <collection property="venues" ofType="com.solvd.laba.database.model.Venue">
+            <id property="venueId" column="venue_id"/>
+            <result property="name" column="venue_name"/>
+            <result property="city" column="venue_city"/>
+            <result property="state" column="venue_state"/>
+            <result property="capacity" column="venue_capacity"/>
+            <result property="website" column="venue_website"/>
+        </collection>
+
+        <!-- Mapping for the sponsors -->
+        <collection property="sponsors" ofType="com.solvd.laba.database.model.Sponsor">
+            <id property="sponsorId" column="sponsor_id"/>
+            <result property="name" column="sponsor_name"/>
+            <result property="sponsorshipAmount" column="sponsorship_amount"/>
+        </collection>
+
+        <!-- Mapping for the artists -->
+        <collection property="artists" ofType="com.solvd.laba.database.model.Artist">
+            <id property="artistId" column="artist_id"/>
+            <result property="firstName" column="artist_first_name"/>
+            <result property="lastName" column="artist_last_name"/>
+            <result property="genre" column="artist_genre"/>
+            <result property="email" column="artist_email"/>
+        </collection>
+
+        <!-- Mapping for the equipment -->
+        <collection property="equipments" ofType="com.solvd.laba.database.model.Equipment">
+            <id property="equipmentId" column="equipment_id"/>
+            <result property="name" column="equipment_name"/>
+            <result property="quantity" column="equipment_quantity"/>
+        </collection>
+    </resultMap>
+    <!-- Select statement to retrieve an event by ID -->
+    <select id="selectEventById" resultMap="eventResultMap">
+        SELECT e.event_id, e.name AS event_name, e.start_date, e.end_date,
+        v.venue_id, v.name AS venue_name, v.city AS venue_city, v.state AS venue_state, v.capacity AS venue_capacity, v.website AS venue_website,
+        s.sponsor_id, s.name AS sponsor_name, s.sponsorship_amount,
+        a.artist_id, a.first_name AS artist_first_name, a.last_name AS artist_last_name, a.genre AS artist_genre, a.email AS artist_email,
+        eq.equipment_id, eq.name AS equipment_name, eq.quantity AS equipment_quantity
+        FROM events e
+        LEFT JOIN events_has_venues ev ON e.event_id = ev.event_id
+        LEFT JOIN venues v ON ev.venue_id = v.venue_id
+        LEFT JOIN events_has_sponsors es ON e.event_id = es.event_id
+        LEFT JOIN sponsors s ON es.sponsor_id = s.sponsor_id
+        LEFT JOIN events_has_artists ea ON e.event_id = ea.event_id
+        LEFT JOIN artists a ON ea.artist_id = a.artist_id
+        LEFT JOIN events_has_equipments ee ON e.event_id = ee.event_id
+        LEFT JOIN equipments eq ON ee.equipment_id = eq.equipment_id
+        WHERE e.event_id = #{eventId}
+    </select>
+
+    <!-- Select statement to retrieve all events -->
+    <select id="selectAllEvents" resultMap="eventResultMap">
+        SELECT *
+        FROM events
+    </select>
+
+    <!-- Insert statement to add a new event -->
+    <insert id="insertEvent">
+        INSERT INTO events (event_id, name, start_date, end_date)
+        VALUES (#{eventId}, #{name}, #{startDate}, #{endDate})
+    </insert>
+
+    <!-- Update statement to update an existing event -->
+    <update id="updateEvent">
+        UPDATE events SET
+        name = #{name},
+        start_date = #{startDate},
+        end_date = #{endDate}
+        WHERE event_id = #{eventId}
+    </update>
+
+    <!-- Delete statement to delete an event by ID -->
+    <delete id="deleteEvent">
+        DELETE FROM events
+        WHERE event_id = #{eventId}
+    </delete>
+</mapper>

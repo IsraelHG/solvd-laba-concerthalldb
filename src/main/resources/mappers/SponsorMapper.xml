@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.SponsorMapper">
+    <resultMap id="sponsorResultMap" type="com.solvd.laba.database.model.Sponsor" autoMapping="false">
+        <!--property - name in model || column - name in DB -->
+        <id property="sponsorId" column="sponsor_id"/>
+        <result property="name" column="name"/>
+        <result property="sponsorshipAmount" column="sponsorship_amount"/>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="selectSponsorById" resultMap="sponsorResultMap">
+        SELECT * FROM sponsors WHERE sponsor_id = #{id}
+    </select>
+
+    <!-- Insert an sponsor -->
+    <insert id="insertSponsor" parameterType="com.solvd.laba.database.model.Sponsor">
+        INSERT INTO sponsors (name, sponsorship_amount)
+        VALUES (#{name}, #{sponsorshipAmount})
+    </insert>
+
+    <!-- Update an sponsor -->
+    <update id="updateSponsor" parameterType="com.solvd.laba.database.model.Sponsor">
+        UPDATE sponsors SET
+        name = #{name},
+        sponsorship_amount = #{sponsorshipAmount},
+        WHERE sponsor_id = #{sponsorId}
+    </update>
+
+    <!-- Delete an sponsor by ID -->
+    <delete id="deleteSponsorById" parameterType="int">
+        DELETE FROM sponsors
+        WHERE sponsor_id = #{id}
+    </delete>
+
+</mapper>
