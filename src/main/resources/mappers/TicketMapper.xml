@@ -10,8 +10,12 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectTicketById" resultMap="ticketResultMap">
+    <select id="getTicketById" resultMap="ticketResultMap">
         SELECT * FROM tickets WHERE ticket_id = #{id}
+    </select>
+
+    <select id="getTickets" resultMap="ticketResultMap">
+        SELECT * FROM tickets
     </select>
 
     <!-- Insert a ticket -->
@@ -23,14 +27,14 @@
     <!-- Update a ticket -->
     <update id="updateTicket" parameterType="com.solvd.laba.database.model.Ticket">
         UPDATE tickets SET
-        seatNumber = #{seat_number},
+        seat_number = #{seatNumber}
         WHERE ticket_id = #{ticketId}
     </update>
 
     <!-- Delete a ticket by ID -->
-    <delete id="deleteTicketById" parameterType="int">
+    <delete id="deleteTicket" parameterType="com.solvd.laba.database.model.Ticket">
         DELETE FROM tickets
-        WHERE ticket_id = #{id}
+        WHERE ticket_id = #{ticketId}
     </delete>
 
 </mapper>

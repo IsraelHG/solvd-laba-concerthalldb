@@ -2,9 +2,11 @@ package com.solvd.laba.database.service;
 
 import com.solvd.laba.database.dao.StaffDAO;
 import com.solvd.laba.database.dao.StaffDAOImpl;
+import com.solvd.laba.database.interfaces.IStaffService;
 import com.solvd.laba.database.model.Staff;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The StaffService class represents a high-level service to
@@ -12,51 +14,57 @@ import java.sql.SQLException;
  * meant to retrieve relevant information about its corresponding
  * entity object.
  */
-public class StaffService {
+public class StaffService implements IStaffService {
     private final StaffDAO staffDAO;
 
     public StaffService() {
         this.staffDAO = new StaffDAOImpl();
     }
 
-    /**
-     * Retrieves a staff with the specified ID.
-     *
-     * @param staffId the ID of the staff to retrieve
-     * @return the staff object with the specified ID
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public Staff getStaff(int staffId) throws SQLException {
-        return staffDAO.get(staffId);
+    public Staff getStaffById(int id) {
+        try {
+            return staffDAO.get(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Sets a staff and inserts it into the database along with its credentials.
-     *
-     * @param staff staff object to be pushed into the server
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void setStaff(Staff staff) throws SQLException {
-        staffDAO.insert(staff);
+    @Override
+    public ArrayList<Staff> getStaffs() {
+        try {
+            return staffDAO.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    /**
-     * Saves a staff object in the database. This method is used for either inserting a new staff or updating an existing one.
-     *
-     * @param staff the staff object to save
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void saveStaff(Staff staff) throws SQLException {
-        staffDAO.save(staff);
+    public void setStaff(Staff staff) {
+        try {
+            staffDAO.insert(staff);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Deletes a staff object from the database.
-     *
-     * @param staff the staff object to delete
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void deleteStaff(Staff staff) throws SQLException {
-        staffDAO.delete(staff);
+    @Override
+    public void updateStaff(Staff staff) {
+        try {
+            staffDAO.update(staff);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteStaff(Staff staff) {
+        try {
+            staffDAO.delete(staff);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

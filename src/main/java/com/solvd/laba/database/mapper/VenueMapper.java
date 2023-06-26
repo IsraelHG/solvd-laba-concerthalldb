@@ -2,6 +2,8 @@ package com.solvd.laba.database.mapper;
 
 import com.solvd.laba.database.model.Venue;
 
+import java.util.ArrayList;
+
 public interface VenueMapper {
     /**
      * Retrieves venue from the database based on the provided ID.
@@ -9,7 +11,9 @@ public interface VenueMapper {
      * @param id the ID of the venue
      * @return the venue object if found, null otherwise
      */
-    Venue selectVenueById(int id);
+    Venue getVenueById(int id);
+
+    ArrayList<Venue> getVenues();
 
     /**
      * Inserts new venue into the database.
@@ -26,9 +30,9 @@ public interface VenueMapper {
     void updateVenue(Venue venue);
 
     /**
-     * Deletes venue from the database based on the provided ID.
+     * Deletes venue from the database based on the provided venue object.
      *
-     * @param id the ID of the venue to be deleted
+     * @param venue the object of the venue to be deleted
      */
-    void deleteVenueById(int id);
+    void deleteVenue(Venue venue);
 }

@@ -2,6 +2,8 @@ package com.solvd.laba.database.mapper;
 
 import com.solvd.laba.database.model.Audience;
 
+import java.util.ArrayList;
+
 public interface AudienceMapper {
     /**
      * Retrieves audience from the database based on the provided ID.
@@ -9,7 +11,14 @@ public interface AudienceMapper {
      * @param id the ID of the audience
      * @return the audience object if found, null otherwise
      */
-    Audience selectAudienceById(int id);
+    Audience getAudienceById(int id);
+
+    /**
+     * Retrieves all audiences from the database.
+     *
+     * @return a collection of audiences if found, null otherwise
+     */
+    ArrayList<Audience> getAudiences();
 
     /**
      * Inserts new audience into the database.
@@ -26,9 +35,9 @@ public interface AudienceMapper {
     void updateAudience(Audience audience);
 
     /**
-     * Deletes audience from the database based on the provided ID.
+     * Deletes audience from the database based on the provided audience object.
      *
-     * @param id the ID of the audience to be deleted
+     * @param audience the object of the audience to be deleted
      */
-    void deleteAudienceById(int id);
+    void deleteAudience(Audience audience);
 }

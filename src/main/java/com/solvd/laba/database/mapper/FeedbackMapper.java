@@ -2,6 +2,8 @@ package com.solvd.laba.database.mapper;
 
 import com.solvd.laba.database.model.Feedback;
 
+import java.util.ArrayList;
+
 public interface FeedbackMapper {
     /**
      * Retrieves feedback from the database based on the provided ID.
@@ -9,7 +11,9 @@ public interface FeedbackMapper {
      * @param id the ID of the feedback
      * @return the feedback object if found, null otherwise
      */
-    Feedback selectFeedbackById(int id);
+    Feedback getFeedbackById(int id);
+
+    ArrayList<Feedback> getFeedbacks();
 
     /**
      * Inserts new feedback into the database.
@@ -26,9 +30,9 @@ public interface FeedbackMapper {
     void updateFeedback(Feedback feedback);
 
     /**
-     * Deletes feedback from the database based on the provided ID.
+     * Deletes feedback from the database based on the provided object.
      *
-     * @param id the ID of the feedback to be deleted
+     * @param feedback the object of the feedback to be deleted
      */
-    void deleteFeedbackById(int id);
+    void deleteFeedback(Feedback feedback);
 }

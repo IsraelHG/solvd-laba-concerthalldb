@@ -14,8 +14,12 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectVenueById" resultMap="venueResultMap">
+    <select id="getVenueById" resultMap="venueResultMap">
         SELECT * FROM venues WHERE venue_id = #{id}
+    </select>
+
+    <select id="getVenues" resultMap="venueResultMap">
+        SELECT * FROM venues
     </select>
 
     <!-- Insert an equipment -->
@@ -31,14 +35,14 @@
         city = #{city},
         state = #{state},
         capacity = #{capacity},
-        website = #{website},
+        website = #{website}
         WHERE venue_id = #{venueId}
     </update>
 
     <!-- Delete equipment by ID -->
-    <delete id="deleteVenueById" parameterType="int">
+    <delete id="deleteVenue" parameterType="com.solvd.laba.database.model.Venue">
         DELETE FROM venues
-        WHERE venue_id = #{id}
+        WHERE venue_id = #{venueId}
     </delete>
 
 </mapper>

@@ -13,9 +13,15 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectArtistById" resultMap="artistResultMap">
+    <select id="getArtistById" resultMap="artistResultMap">
         SELECT * FROM artists WHERE artist_id = #{id}
     </select>
+
+    <!-- get all artists -->
+    <select id="getArtists" resultMap="artistResultMap">
+        SELECT * FROM artists
+    </select>
+
 
     <!-- Insert an artist -->
     <insert id="insertArtist" parameterType="com.solvd.laba.database.model.Artist">
@@ -34,9 +40,9 @@
     </update>
 
     <!-- Delete an artist by ID -->
-    <delete id="deleteArtistById" parameterType="int">
+    <delete id="deleteArtist" parameterType="com.solvd.laba.database.model.Artist">
         DELETE FROM artists
-        WHERE artist_id = #{id}
+        WHERE artist_id = #{artistId}
     </delete>
 
     <!-- Select an artist by name -->

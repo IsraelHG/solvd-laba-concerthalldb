@@ -43,7 +43,8 @@ public class EquipmentDAOImpl extends BaseDAOImpl<Equipment> implements Equipmen
 
     @Override
     protected String getUpdateValues(Equipment entity) {
-        return "equipment_id='" + entity.getEquipmentId() + "', name='" + entity.getName() +
-               "', quantity='" + entity.getQuantity() + "'";
+        return EQUIPMENT_ID + "='" + entity.getEquipmentId() + "', " +
+                NAME + "='" + entity.getName() + "', " +
+                QUANTITY + "='" + entity.getQuantity() + "'";
     }
 }

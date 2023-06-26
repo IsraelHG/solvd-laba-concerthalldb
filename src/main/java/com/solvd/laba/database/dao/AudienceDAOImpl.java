@@ -63,6 +63,6 @@ public class AudienceDAOImpl extends BaseDAOImpl<Audience> implements AudienceDA
                 LAST_NAME + "='" + entity.getLastName() + "', " +
                 AGE + "='" + entity.getAge() + "', " +
                 GENDER + "='" + entity.getGender() + "', " +
-                EMAIL + "='" + entity.getEmail() + "');";
+                EMAIL + "='" + entity.getEmail() + "'";
     }
 }

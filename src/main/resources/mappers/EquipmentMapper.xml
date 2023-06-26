@@ -11,8 +11,12 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectEquipmentById" resultMap="equipmentResultMap">
+    <select id="getEquipmentById" resultMap="equipmentResultMap">
         SELECT * FROM equipments WHERE equipment_id = #{id}
+    </select>
+
+    <select id="getEquipments" resultMap="equipmentResultMap">
+        SELECT * FROM equipments
     </select>
 
     <!-- Insert an equipment -->
@@ -25,14 +29,14 @@
     <update id="updateEquipment" parameterType="com.solvd.laba.database.model.Equipment">
         UPDATE equipments SET
         name = #{name},
-        quantity = #{quantity},
+        quantity = #{quantity}
         WHERE equipment_id = #{equipmentId}
     </update>
 
     <!-- Delete equipment by ID -->
-    <delete id="deleteEquipmentById" parameterType="int">
+    <delete id="deleteEquipment" parameterType="com.solvd.laba.database.model.Equipment">
         DELETE FROM equipments
-        WHERE equipment_id = #{id}
+        WHERE equipment_id = #{equipmentId}
     </delete>
 
 </mapper>

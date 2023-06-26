@@ -53,10 +53,10 @@ public class Database {
             Connection connection;
             if (connectionPool.isEmpty()) {
                 connection = createConnection();
-                LOGGER.info("Added connection: " + Thread.currentThread().getName());
+                LOGGER.debug("Added connection: " + Thread.currentThread().getName());
             } else {
                 connection = connectionPool.take();
-                LOGGER.info("Worker connected: " + Thread.currentThread().getName() +
+                LOGGER.debug("Worker connected: " + Thread.currentThread().getName() +
                         " [Available connections: " + connectionPool.size() + "]");
             }
             return connection;
@@ -76,7 +76,7 @@ public class Database {
         try {
             connectionPool.put(connection);
             connectionSemaphore.release(); // Release a permit to the semaphore
-            LOGGER.info("Worker exhausted: " + Thread.currentThread().getName() +
+            LOGGER.debug("Worker exhausted: " + Thread.currentThread().getName() +
                     " [Available connections: " + connectionPool.size() + "]");
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

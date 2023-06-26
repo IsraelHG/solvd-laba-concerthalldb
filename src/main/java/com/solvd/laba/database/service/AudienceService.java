@@ -2,9 +2,11 @@ package com.solvd.laba.database.service;
 
 import com.solvd.laba.database.dao.AudienceDAO;
 import com.solvd.laba.database.dao.AudienceDAOImpl;
+import com.solvd.laba.database.interfaces.IAudienceService;
 import com.solvd.laba.database.model.Audience;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The AudienceService class represents a high-level service to
@@ -12,51 +14,57 @@ import java.sql.SQLException;
  * meant to retrieve relevant information about its corresponding
  * entity object.
  */
-public class AudienceService {
+public class AudienceService implements IAudienceService {
     private final AudienceDAO audienceDAO;
 
     public AudienceService() {
         this.audienceDAO = new AudienceDAOImpl();
     }
 
-    /**
-     * Retrieves an audience with the specified ID.
-     *
-     * @param audienceId the ID of the audience to retrieve
-     * @return the audience object with the specified ID
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public Audience getAudience(int audienceId) throws SQLException {
-        return audienceDAO.get(audienceId);
+    public Audience getAudienceById(int id) {
+        try {
+            return audienceDAO.get(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Sets an audience and inserts it into the database along with its credentials.
-     *
-     * @param audience audience object to be pushed into the server
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void setAudience(Audience audience) throws SQLException {
-        audienceDAO.insert(audience);
+    @Override
+    public ArrayList<Audience> getAudiences() {
+        try {
+            return audienceDAO.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    /**
-     * Saves an audience object in the database. This method is used for either inserting a new audience or updating an existing one.
-     *
-     * @param audience the audience object to save
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void saveAudience(Audience audience) throws SQLException {
-        audienceDAO.save(audience);
+    public void setAudience(Audience audience) {
+        try {
+            audienceDAO.insert(audience);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Deletes an audience object from the database.
-     *
-     * @param audience the audience object to delete
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void deleteAudience(Audience audience) throws SQLException {
-        audienceDAO.delete(audience);
+    @Override
+    public void updateAudience(Audience audience) {
+        try {
+            audienceDAO.update(audience);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteAudience(Audience audience) {
+        try {
+            audienceDAO.delete(audience);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

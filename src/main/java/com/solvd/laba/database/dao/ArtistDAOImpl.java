@@ -51,6 +51,6 @@ public class ArtistDAOImpl extends BaseDAOImpl<Artist> implements ArtistDAO {
                 FIRST_NAME + "='" + entity.getFirstName() + "', " +
                 LAST_NAME + "='" + entity.getLastName() + "', " +
                 GENRE + "='" + entity.getGenre() + "', " +
-                EMAIL + "='" + entity.getEmail() + "');";
+                EMAIL + "='" + entity.getEmail() + "'";
     }
 }

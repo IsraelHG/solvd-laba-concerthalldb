@@ -2,6 +2,8 @@ package com.solvd.laba.database.mapper;
 
 import com.solvd.laba.database.model.Staff;
 
+import java.util.ArrayList;
+
 public interface StaffMapper {
     /**
      * Retrieves staff from the database based on the provided ID.
@@ -9,7 +11,9 @@ public interface StaffMapper {
      * @param id the ID of the staff
      * @return the staff object if found, null otherwise
      */
-    Staff selectStaffById(int id);
+    Staff getStaffById(int id);
+
+    ArrayList<Staff> getStaffs();
 
     /**
      * Inserts new staff into the database.
@@ -26,9 +30,9 @@ public interface StaffMapper {
     void updateStaff(Staff staff);
 
     /**
-     * Deletes staff from the database based on the provided ID.
+     * Deletes staff from the database based on the provided staff object.
      *
-     * @param id the ID of the staff to be deleted
+     * @param staff the object of the staff to be deleted
      */
-    void deleteStaffById(int id);
+    void deleteStaff(Staff staff);
 }

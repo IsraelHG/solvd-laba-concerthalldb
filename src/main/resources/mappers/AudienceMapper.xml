@@ -15,8 +15,13 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectAudienceById" resultMap="audienceResultMap">
+    <select id="getAudienceById" resultMap="audienceResultMap">
         SELECT * FROM audiences WHERE audience_id = #{id}
+    </select>
+
+    <!-- get all audiences -->
+    <select id="getAudiences" resultMap="audienceResultMap">
+        SELECT * FROM audiences
     </select>
 
     <!-- Insert an audience -->
@@ -28,18 +33,18 @@
     <!-- Update an audience -->
     <update id="updateAudience" parameterType="com.solvd.laba.database.model.Audience">
         UPDATE audiences SET
-        firstName = #{first_name},
-        lastName = #{last_name},
+        first_name = #{firstName},
+        last_name = #{lastName},
         age = #{age},
         gender = #{gender},
-        email = #{email},
+        email = #{email}
         WHERE audience_id = #{audienceId}
     </update>
 
     <!-- Delete an audience by ID -->
-    <delete id="deleteAudienceById" parameterType="int">
+    <delete id="deleteAudience" parameterType="com.solvd.laba.database.model.Audience">
         DELETE FROM audiences
-        WHERE audience_id = #{id}
+        WHERE audience_id = #{audienceId}
     </delete>
 
 </mapper>

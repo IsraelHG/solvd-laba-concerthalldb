@@ -2,9 +2,11 @@ package com.solvd.laba.database.service;
 
 import com.solvd.laba.database.dao.ArtistDAO;
 import com.solvd.laba.database.dao.ArtistDAOImpl;
+import com.solvd.laba.database.interfaces.IArtistService;
 import com.solvd.laba.database.model.Artist;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The ArtistService class represents a high-level service to
@@ -12,7 +14,7 @@ import java.sql.SQLException;
  * meant to retrieve relevant information about its corresponding
  * entity object.
  */
-public class ArtistService {
+public class ArtistService implements IArtistService {
     private final ArtistDAO artistDAO;
 
     public ArtistService() {
@@ -21,22 +23,40 @@ public class ArtistService {
     /**
      * Retrieves artist with the specified ID along with its associated artist.
      *
-     * @param artistId the ID of the artist to retrieve
+     * @param id the ID of the artist to retrieve
      * @return the artist object with the specified ID
      * @throws SQLException if an error occurs while accessing the database
      */
-    public Artist getArtist(int artistId) throws SQLException {
-        return artistDAO.get(artistId);
+    public Artist getArtistById(int id) {
+        try {
+            return artistDAO.get(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public ArrayList<Artist> getArtists() {
+        try {
+            return artistDAO.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * Sets an artist and inserts it into the database along with its credentials.
      *
      * @param artist artist object to be pushed into the server
-     * @throws SQLException if an error occurs while accessing the database
      */
-    public void setArist(Artist artist) throws SQLException {
-        artistDAO.insert(artist);
+    public void setArtist(Artist artist) {
+        try {
+            artistDAO.insert(artist);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -45,19 +65,29 @@ public class ArtistService {
      * @param artist the artist object to save
      * @throws SQLException if an error occurs while accessing the database
      */
-    public void saveArtist(Artist artist) throws SQLException {
-        artistDAO.save(artist);
+//    public void saveArtist(Artist artist) throws SQLException {
+//        artistDAO.save(artist);
+//    }
+
+    @Override
+    public void updateArtist(Artist artist) {
+        try {
+            artistDAO.update(artist);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Deletes an artist object from the database.
      *
      * @param artist the artist object to delete
-     * @throws SQLException if an error occurs while accessing the database
      */
-    public void deleteArtist(Artist artist) throws SQLException {
-        artistDAO.delete(artist);
+    public void deleteArtist(Artist artist) {
+        try {
+            artistDAO.delete(artist);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }

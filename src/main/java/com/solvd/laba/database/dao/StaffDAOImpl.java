@@ -51,6 +51,6 @@ public class StaffDAOImpl extends BaseDAOImpl<Staff> implements StaffDAO {
     protected String getUpdateValues(Staff entity) {
         return FIRST_NAME + "='" + entity.getFirstName() + "', " +
                 LAST_NAME + "='" + entity.getLastName() + "', " +
-                ROLE + "='" + entity.getRole() + "');";
+                ROLE + "='" + entity.getRole() + "'";
     }
 }

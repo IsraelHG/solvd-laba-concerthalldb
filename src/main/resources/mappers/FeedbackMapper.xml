@@ -28,7 +28,7 @@
     </resultMap>
 
     <!-- Wrapped queries -->
-    <select id="selectFeedbackById" resultMap="feedbackResultMap">
+    <select id="getFeedbackById" resultMap="feedbackResultMap">
         SELECT f.feedback_id, f.rating,
         e.event_id, e.name, e.start_date, e.end_date,
         a.audience_id, a.first_name, a.last_name, a.age, a.gender, a.email
@@ -54,9 +54,9 @@
     </update>
 
     <!-- Delete a feedback by ID -->
-    <delete id="deleteFeedbackById" parameterType="int">
+    <delete id="deleteFeedback" parameterType="com.solvd.laba.database.model.Feedback">
         DELETE FROM feedbacks
-        WHERE feedback_id = #{id}
+        WHERE feedback_id = #{feedbackId}
     </delete>
 
 </mapper>

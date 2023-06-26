@@ -12,8 +12,12 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectStaffById" resultMap="staffResultMap">
+    <select id="getStaffById" resultMap="staffResultMap">
         SELECT * FROM staffs WHERE staff_id = #{id}
+    </select>
+
+    <select id="getStaffs" resultMap="staffResultMap">
+        SELECT * FROM staffs
     </select>
 
     <!-- Insert a staff -->
@@ -25,16 +29,16 @@
     <!-- Update a staff -->
     <update id="updateStaff" parameterType="com.solvd.laba.database.model.Staff">
         UPDATE staffs SET
-        firstName = #{first_name},
-        lastName = #{last_name},
-        role = #{role},
+        first_name = #{firstName},
+        last_name = #{lastName},
+        role = #{role}
         WHERE staff_id = #{staffId}
     </update>
 
-    <!-- Delete a staff by ID -->
-    <delete id="deleteStaffById" parameterType="int">
+    <!-- Delete a staff by object ID -->
+    <delete id="deleteStaff" parameterType="com.solvd.laba.database.model.Staff">
         DELETE FROM staffs
-        WHERE staff_id = #{id}
+        WHERE staff_id = #{staffId}
     </delete>
 
 </mapper>

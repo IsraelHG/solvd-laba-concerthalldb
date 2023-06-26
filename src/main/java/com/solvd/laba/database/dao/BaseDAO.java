@@ -31,28 +31,25 @@ interface BaseDAO<T> {
      * Saves an entity in the database. This method is used for either inserting a new entity or updating an existing one.
      *
      * @param t the entity to save
-     * @return the number of affected rows in the database (1 for successful save, 0 otherwise)
      * @throws SQLException if an error occurs while performing the database operation
      */
-    int save(T t) throws SQLException;
+    void save(T t) throws SQLException;
 
     /**
      * Inserts a new entity into the database.
      *
      * @param t the entity to insert
-     * @return the number of affected rows in the database (1 for successful insert, 0 otherwise)
      * @throws SQLException if an error occurs while performing the database operation
      */
-    int insert(T t) throws SQLException;
+    void insert(T t) throws SQLException;
 
     /**
      * Updates an existing entity in the database.
      *
      * @param t the entity to update
-     * @return the number of affected rows in the database (1 for successful update, 0 otherwise)
      * @throws SQLException if an error occurs while performing the database operation
      */
-    int update(T t) throws SQLException;
+    void update(T t) throws SQLException;
 
     /**
      * Deletes an entity from the database.
