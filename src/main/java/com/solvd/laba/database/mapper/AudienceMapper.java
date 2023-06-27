@@ -14,6 +14,22 @@ public interface AudienceMapper {
     Audience getAudienceById(int id);
 
     /**
+     * Retrieves audience from the database based on the provided first name.
+     *
+     * @param audienceName the first name of the audience
+     * @return the audience object if found, null otherwise
+     */
+    Audience getAudienceByName(String audienceName);
+
+    /**
+     * Retrieves audience from the database based on the provided email.
+     *
+     * @param email the email of the audience
+     * @return the audience object if found, null otherwise
+     */
+    Audience getAudienceByEmail(String email);
+
+    /**
      * Retrieves all audiences from the database.
      *
      * @return a collection of audiences if found, null otherwise

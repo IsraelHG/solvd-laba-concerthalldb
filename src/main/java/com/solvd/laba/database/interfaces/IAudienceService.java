@@ -18,6 +18,10 @@ public interface IAudienceService {
      */
     Audience getAudienceById(int id);
 
+    Audience getAudienceByName(String audienceName);
+
+    Audience getAudienceByEmail(String email);
+
     /**
      * Retrieves a list of all audiences.
      *

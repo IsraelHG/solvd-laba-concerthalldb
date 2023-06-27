@@ -19,6 +19,14 @@
         SELECT * FROM audiences WHERE audience_id = #{id}
     </select>
 
+    <select id="getAudienceByName" resultMap="audienceResultMap">
+        SELECT * FROM audiences WHERE first_name = #{audienceName}
+    </select>
+
+    <select id="getAudienceByEmail" resultMap="audienceResultMap">
+        SELECT * FROM audiences WHERE email = #{email}
+    </select>
+
     <!-- get all audiences -->
     <select id="getAudiences" resultMap="audienceResultMap">
         SELECT * FROM audiences

@@ -31,6 +31,16 @@ public class AudienceService implements IAudienceService {
     }
 
     @Override
+    public Audience getAudienceByName(String audienceName) {
+        return null;
+    }
+
+    @Override
+    public Audience getAudienceByEmail(String email) {
+        return null;
+    }
+
+    @Override
     public ArrayList<Audience> getAudiences() {
         try {
             return audienceDAO.getAll();
