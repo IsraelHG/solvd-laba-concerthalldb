@@ -62,7 +62,7 @@ public class VenueDAOImpl extends BaseDAOImpl<Venue> implements VenueDAO {
                 CITY + "='" + entity.getCity() + "', " +
                 STATE + "='" + entity.getState() + "', " +
                 CAPACITY + "='" + entity.getCapacity() + "', " +
-                WEBSITE + "='" + entity.getWebsite() + "');";
+                WEBSITE + "='" + entity.getWebsite() + "'";
     }
 
     @Override

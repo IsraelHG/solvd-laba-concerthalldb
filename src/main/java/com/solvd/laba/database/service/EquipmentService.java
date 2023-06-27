@@ -2,9 +2,12 @@ package com.solvd.laba.database.service;
 
 import com.solvd.laba.database.dao.EquipmentDAO;
 import com.solvd.laba.database.dao.EquipmentDAOImpl;
+import com.solvd.laba.database.interfaces.IEquipmentService;
 import com.solvd.laba.database.model.Equipment;
+import org.apache.ibatis.jdbc.SQL;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * The EquipmentService class represents a high-level service to
@@ -12,51 +15,57 @@ import java.sql.SQLException;
  * meant to retrieve relevant information about its corresponding
  * entity object.
  */
-public class EquipmentService {
+public class EquipmentService implements IEquipmentService {
     private final EquipmentDAO equipmentDAO;
 
     public EquipmentService() {
         equipmentDAO = new EquipmentDAOImpl();
     }
 
-    /**
-     * Retrieves equipment with the specified ID along with its associated equipment.
-     *
-     * @param equipmentId the ID of the equipment to retrieve
-     * @return the equipment object with the specified ID
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public Equipment getEquipment(int equipmentId) throws SQLException {
-        return equipmentDAO.get(equipmentId);
+    public Equipment getEquipmentById(int equipmentId) {
+        try {
+            return equipmentDAO.get(equipmentId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Sets an equipment and inserts it into the database along with its credentials.
-     *
-     * @param equipment equipment object to be pushed into the server
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void setEquipment(Equipment equipment) throws SQLException {
-        equipmentDAO.insert(equipment);
+    @Override
+    public ArrayList<Equipment> getEquipments() {
+        try {
+            return equipmentDAO.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Saves an equipment object in the database. This method is used for either inserting a new equipment or updating an existing one.
-     *
-     * @param equipment the equipment object to save
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void saveEquipment(Equipment equipment) throws SQLException {
-        equipmentDAO.save(equipment);
+    public void setEquipment(Equipment equipment) {
+        try {
+            equipmentDAO.insert(equipment);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Deletes an equipment object from the database.
-     *
-     * @param equipment the equipment object to delete
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void deleteEquipment(Equipment equipment) throws SQLException {
-        equipmentDAO.delete(equipment);
+    @Override
+    public void updateEquipment(Equipment equipment) {
+        try {
+            equipmentDAO.update(equipment);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException();
+        }
+    }
+
+    public void deleteEquipment(Equipment equipment) {
+        try {
+            equipmentDAO.delete(equipment);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

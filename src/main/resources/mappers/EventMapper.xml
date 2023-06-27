@@ -43,8 +43,8 @@
             <result property="quantity" column="equipment_quantity"/>
         </collection>
     </resultMap>
-    <!-- Select statement to retrieve an event by ID -->
-    <select id="selectEventById" resultMap="eventResultMap">
+    <!-- Get statement to retrieve an event by ID -->
+    <select id="getEventById" resultMap="eventResultMap">
         SELECT e.event_id, e.name AS event_name, e.start_date, e.end_date,
         v.venue_id, v.name AS venue_name, v.city AS venue_city, v.state AS venue_state, v.capacity AS venue_capacity, v.website AS venue_website,
         s.sponsor_id, s.name AS sponsor_name, s.sponsorship_amount,
@@ -63,15 +63,28 @@
     </select>
 
     <!-- Select statement to retrieve all events -->
-    <select id="selectAllEvents" resultMap="eventResultMap">
-        SELECT *
-        FROM events
+    <select id="getEvents" resultMap="eventResultMap">
+        SELECT
+        e.event_id, e.name AS event_name, e.start_date, e.end_date,
+        v.venue_id, v.name AS venue_name, v.city AS venue_city, v.state AS venue_state, v.capacity AS venue_capacity, v.website AS venue_website,
+        s.sponsor_id, s.name AS sponsor_name, s.sponsorship_amount,
+        a.artist_id, a.first_name AS artist_first_name, a.last_name AS artist_last_name, a.genre AS artist_genre, a.email AS artist_email,
+        eq.equipment_id, eq.name AS equipment_name, eq.quantity AS equipment_quantity
+        FROM events e
+        LEFT JOIN events_has_venues ev ON e.event_id = ev.event_id
+        LEFT JOIN venues v ON ev.venue_id = v.venue_id
+        LEFT JOIN events_has_sponsors es ON e.event_id = es.event_id
+        LEFT JOIN sponsors s ON es.sponsor_id = s.sponsor_id
+        LEFT JOIN events_has_artists ea ON e.event_id = ea.event_id
+        LEFT JOIN artists a ON ea.artist_id = a.artist_id
+        LEFT JOIN events_has_equipments ee ON e.event_id = ee.event_id
+        LEFT JOIN equipments eq ON ee.equipment_id = eq.equipment_id
     </select>
 
     <!-- Insert statement to add a new event -->
     <insert id="insertEvent">
-        INSERT INTO events (event_id, name, start_date, end_date)
-        VALUES (#{eventId}, #{name}, #{startDate}, #{endDate})
+        INSERT INTO events (name, start_date, end_date)
+        VALUES (#{name}, #{startDate}, #{endDate})
     </insert>
 
     <!-- Update statement to update an existing event -->

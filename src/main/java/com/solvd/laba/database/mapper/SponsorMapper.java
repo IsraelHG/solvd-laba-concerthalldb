@@ -2,6 +2,8 @@ package com.solvd.laba.database.mapper;
 
 import com.solvd.laba.database.model.Sponsor;
 
+import java.util.ArrayList;
+
 public interface SponsorMapper {
     /**
      * Retrieves a sponsor from the database based on the provided ID.
@@ -9,7 +11,9 @@ public interface SponsorMapper {
      * @param id the ID of the sponsor
      * @return the sponsor object if found, null otherwise
      */
-    Sponsor selectSponsorById(int id);
+    Sponsor getSponsorById(int id);
+
+    ArrayList<Sponsor> getSponsors();
 
     /**
      * Inserts a new sponsor into the database.
@@ -26,9 +30,9 @@ public interface SponsorMapper {
     void updateSponsor(Sponsor sponsor);
 
     /**
-     * Deletes a sponsor from the database based on the provided ID.
+     * Deletes a sponsor from the database based on the provided sponsor object.
      *
-     * @param id the ID of the sponsor to be deleted
+     * @param sponsor the object of the sponsor to be deleted
      */
-    void deleteSponsorById(int id);
+    void deleteSponsor(Sponsor sponsor);
 }

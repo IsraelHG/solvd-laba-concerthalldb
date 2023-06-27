@@ -63,39 +63,37 @@ abstract class BaseDAOImpl<T> implements BaseDAO<T> {
     }
 
     @Override
-    public int save(T t) throws SQLException {
+    public void save(T t) throws SQLException {
         int id = getId(t);
         if (id != 0) {
-            return update(t);
+            update(t);
         } else {
-            return insert(t);
+            insert(t);
         }
     }
 
     @Override
-    public int insert(T t) throws SQLException {
+    public void insert(T t) throws SQLException {
         Connection connection = Database.getConnection();
         final String sql = "INSERT INTO " + getTableName() + getInsertValues(t);
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            return statement.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;
         } finally {
             Database.releaseConnection(connection);
         }
     }
 
     @Override
-    public int update(T t) throws SQLException {
+    public void update(T t) throws SQLException {
         Connection connection = Database.getConnection();
         final String sql = "UPDATE " + getTableName() + " SET " + getUpdateValues(t) + " WHERE " + getIdColumnName() + "=?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, getId(t));
-            return statement.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            return 0;
         } finally {
             Database.releaseConnection(connection);
         }

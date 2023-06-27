@@ -4,6 +4,7 @@ import com.solvd.laba.database.dao.EventDAO;
 import com.solvd.laba.database.dao.EventDAOImpl;
 import com.solvd.laba.database.dao.VenueDAO;
 import com.solvd.laba.database.dao.VenueDAOImpl;
+import com.solvd.laba.database.interfaces.IEventService;
 import com.solvd.laba.database.model.Event;
 import com.solvd.laba.database.model.Venue;
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
  * meant to retrieve relevant information about its corresponding
  * entity object.
  */
-public class EventService {
+public class EventService implements IEventService {
     private final EventDAO eventDAO;
     private final VenueDAO venueDAO;
 
@@ -25,48 +26,55 @@ public class EventService {
         eventDAO = new EventDAOImpl();
     }
 
-    /**
-     * Retrieves an event with the specified ID along with its associated venues.
-     *
-     * @param eventId the ID of the event to retrieve
-     * @return the event object with the specified ID, including its associated venues
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public Event getEvent(int eventId) throws SQLException {
-        Event event = eventDAO.get(eventId);
-        ArrayList<Venue> venues = venueDAO.fetchVenuesForEvent(eventId);
-        event.setVenues(venues);
-        return event;
+    public Event getEventById(int eventId) {
+        try {
+            Event event = eventDAO.get(eventId);
+            ArrayList<Venue> venues = venueDAO.fetchVenuesForEvent(eventId);
+            event.setVenues(venues);
+            return event;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Sets an event and inserts it into the database along with its credentials.
-     *
-     * @param event event object to be pushed into the server
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void setEvent(Event event) throws SQLException {
-        eventDAO.insert(event);
+    @Override
+    public ArrayList<Event> getEvents() {
+        try {
+            return eventDAO.getAll();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Saves an event object in the database. This method is used for either inserting a new event or updating an existing one.
-     *
-     * @param event the event object to save
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void saveEvent(Event event) throws SQLException {
-        eventDAO.save(event);
+    public void setEvent(Event event) {
+        try {
+            eventDAO.insert(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    /**
-     * Deletes an event object from the database.
-     *
-     * @param event the event object to delete
-     * @throws SQLException if an error occurs while accessing the database
-     */
-    public void deleteEvent(Event event) throws SQLException {
-        eventDAO.delete(event);
+    @Override
+    public void updateEvent(Event event) {
+        try {
+            eventDAO.update(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void deleteEvent(Event event) {
+        try {
+            eventDAO.delete(event);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
 }

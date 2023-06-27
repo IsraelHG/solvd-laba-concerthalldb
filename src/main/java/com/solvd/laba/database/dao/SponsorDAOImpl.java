@@ -42,7 +42,8 @@ public class SponsorDAOImpl extends BaseDAOImpl<Sponsor> implements SponsorDAO {
 
     @Override
     protected String getUpdateValues(Sponsor entity) {
-        return "sponsor_id='" + entity.getSponsorId() + "', name='" + entity.getName() +
-                "', sponsorship_amount='" + entity.getSponsorshipAmount() + "'";
+        return SPONSOR_ID + "='" + entity.getSponsorId() + "', " +
+                NAME + "='" + entity.getName() + "', " +
+                SPONSORSHIP_AMOUNT + "='" + entity.getSponsorshipAmount() + "'";
     }
 }

@@ -11,11 +11,15 @@
     </resultMap>
 
     <!-- wrapped queries -->
-    <select id="selectSponsorById" resultMap="sponsorResultMap">
+    <select id="getSponsorById" resultMap="sponsorResultMap">
         SELECT * FROM sponsors WHERE sponsor_id = #{id}
     </select>
 
-    <!-- Insert an sponsor -->
+    <select id="getSponsors" resultMap="sponsorResultMap">
+        SELECT * FROM sponsors
+    </select>
+
+    <!-- Insert a sponsor -->
     <insert id="insertSponsor" parameterType="com.solvd.laba.database.model.Sponsor">
         INSERT INTO sponsors (name, sponsorship_amount)
         VALUES (#{name}, #{sponsorshipAmount})
@@ -25,14 +29,14 @@
     <update id="updateSponsor" parameterType="com.solvd.laba.database.model.Sponsor">
         UPDATE sponsors SET
         name = #{name},
-        sponsorship_amount = #{sponsorshipAmount},
+        sponsorship_amount = #{sponsorshipAmount}
         WHERE sponsor_id = #{sponsorId}
     </update>
 
     <!-- Delete an sponsor by ID -->
-    <delete id="deleteSponsorById" parameterType="int">
+    <delete id="deleteSponsor" parameterType="com.solvd.laba.database.model.Sponsor">
         DELETE FROM sponsors
-        WHERE sponsor_id = #{id}
+        WHERE sponsor_id = #{sponsorId}
     </delete>
 
 </mapper>

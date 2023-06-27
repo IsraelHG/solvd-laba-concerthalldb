@@ -65,7 +65,7 @@ public class FeedbackDAOImpl extends BaseDAOImpl<Feedback> implements FeedbackDA
     protected String getUpdateValues(Feedback entity) {
         return FK_EVENT_ID + "='" + entity.getEvent().getEventId() + "', " +
                 FK_AUDIENCE_ID + "='" + entity.getAudience().getAudienceId() + "', " +
-                RATING + "='" + entity.getRating() + "');";
+                RATING + "='" + entity.getRating() + "'";
     }
 
     @Override

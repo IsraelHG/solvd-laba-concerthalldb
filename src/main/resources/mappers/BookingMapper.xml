@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Root tag mapper -->
+<mapper namespace="com.solvd.laba.database.mapper.BookingMapper">
+    <resultMap id="bookingResultMap" type="com.solvd.laba.database.model.Booking">
+        <id property="bookingId" column="booking_id"/>
+        <result property="bookingDate" column="booking_date"/>
+        <!-- Define mappings for other properties here -->
+        <association property="event" javaType="com.solvd.laba.database.model.Event">
+            <id property="eventId" column="event_id"/>
+            <result property="name" column="event_name"/>
+            <result property="startDate" column="start_date"/>
+            <result property="endDate" column="end_date"/>
+        </association>
+        <association property="audience" javaType="com.solvd.laba.database.model.Audience">
+            <id property="audienceId" column="audience_id"/>
+            <result property="firstName" column="audience_first_name"/>
+            <result property="lastName" column="audience_last_name"/>
+            <result property="age" column="age"/>
+            <result property="gender" column="gender" typeHandler="com.solvd.laba.database.enums.GenderTypeHandler"/>
+            <result property="email" column="email"/>
+        </association>
+        <association property="staff" javaType="com.solvd.laba.database.model.Staff">
+            <id property="staffId" column="staff_id"/>
+            <result property="firstName" column="staff_first_name"/>
+            <result property="lastName" column="staff_last_name"/>
+            <result property="role" column="role"/>
+        </association>
+        <association property="ticket" javaType="com.solvd.laba.database.model.Ticket">
+            <id property="ticketId" column="ticket_id"/>
+            <result property="seatNumber" column="seat_number"/>
+        </association>
+    </resultMap>
+
+    <!-- wrapped queries -->
+    <select id="getBookingById" resultMap="bookingResultMap">
+        SELECT b.booking_id, b.booking_date,
+        e.event_id, e.name AS event_name, e.start_date, e.end_date,
+        a.audience_id, a.first_name AS audience_first_name, a.last_name AS audience_last_name, a.age, a.gender, a.email,
+        s.staff_id, s.first_name AS staff_first_name, s.last_name AS staff_last_name, s.role,
+        t.ticket_id, t.seat_number
+        FROM bookings b
+        INNER JOIN events e ON b.event_id = e.event_id
+        INNER JOIN audiences a ON b.audience_id = a.audience_id
+        INNER JOIN staffs s ON b.staff_id = s.staff_id
+        INNER JOIN tickets t ON b.ticket_id = t.ticket_id
+        WHERE
+        b.booking_id = #{bookingId}
+    </select>
+
+    <select id="getBookings" resultMap="bookingResultMap">
+        SELECT b.booking_id, b.booking_date,
+        e.event_id, e.name AS event_name, e.start_date, e.end_date,
+        a.audience_id, a.first_name AS audience_first_name, a.last_name AS audience_last_name, a.age, a.gender, a.email,
+        s.staff_id, s.first_name AS staff_first_name, s.last_name AS staff_last_name, s.role,
+        t.ticket_id, t.seat_number
+        FROM bookings b
+        INNER JOIN events e ON b.event_id = e.event_id
+        INNER JOIN audiences a ON b.audience_id = a.audience_id
+        INNER JOIN staffs s ON b.staff_id = s.staff_id
+        INNER JOIN tickets t ON b.ticket_id = t.ticket_id
+    </select>
+
+    <!-- Insert an booking -->
+    <insert id="insertBooking" parameterType="com.solvd.laba.database.model.Booking">
+        INSERT INTO bookings (booking_date, event_id, audience_id, staff_id, ticket_id)
+        VALUES (#{bookingDate}, #{event.eventId}, #{audience.audienceId}, #{staff.staffId}, #{ticket.ticketId})
+
+    </insert>
+
+    <!-- Update an booking -->
+    <update id="updateBooking" parameterType="com.solvd.laba.database.model.Booking">
+        UPDATE bookings
+        SET booking_date = #{bookingDate},
+        event_id = #{event.eventId},
+        audience_id = #{audience.audienceId},
+        staff_id = #{staff.staffId},
+        ticket_id = #{ticket.ticketId}
+        WHERE booking_id = #{bookingId}
+
+    </update>
+
+    <!-- Delete booking by ID -->
+    <delete id="deleteBooking" parameterType="com.solvd.laba.database.model.Booking">
+        DELETE FROM bookings
+        WHERE booking_id = #{id}
+    </delete>
+
+</mapper>

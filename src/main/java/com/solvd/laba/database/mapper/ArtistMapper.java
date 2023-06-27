@@ -2,6 +2,7 @@ package com.solvd.laba.database.mapper;
 
 import com.solvd.laba.database.model.Artist;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,14 @@ public interface ArtistMapper {
      * @param id the ID of the artist
      * @return the artist object if found, null otherwise
      */
-    Artist selectArtistById(int id);
+    Artist getArtistById(int id);
+
+    /**
+     * Retrieves all artists from the database.
+     *
+     * @return a collection of artists if found, null otherwise
+     */
+    ArrayList<Artist> getArtists();
 
     /**
      * Inserts a new artist into the database.
@@ -30,11 +38,11 @@ public interface ArtistMapper {
     void updateArtist(Artist artist);
 
     /**
-     * Deletes an artist from the database based on the provided ID.
+     * Deletes an artist from the database based on the provided artist object.
      *
-     * @param id the ID of the artist to be deleted
+     * @param artist the artist to be deleted
      */
-    void deleteArtistById(int id);
+    void deleteArtist(Artist artist);
 
     /**
      * Retrieves a list of artists from the database based on the provided name.

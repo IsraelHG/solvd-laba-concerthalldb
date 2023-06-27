@@ -13,7 +13,6 @@ solvd-laba-1.iml
 logs
 debugS
 target
-src/main/resources/db.properties
 
 
 ### Eclipse ###

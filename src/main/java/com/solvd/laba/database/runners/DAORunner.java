@@ -1,19 +1,17 @@
-package com.solvd.laba.database;
+package com.solvd.laba.database.runners;
 
 import com.solvd.laba.database.model.*;
 import com.solvd.laba.database.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Main {
-    public static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
+public class DAORunner {
+    public static final Logger LOGGER = LogManager.getLogger(DAORunner.class.getName());
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -42,113 +40,63 @@ public class Main {
         Feedback feedback1;
 
         CompletableFuture<Venue> venueFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Venue venue = venueService.getVenue(1);
-                LOGGER.info(venue);
-                return venue;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Venue venue = venueService.getVenueById(1);
+            LOGGER.info(venue);
+            return venue;
         }, executorService);
 
         CompletableFuture<Event> eventFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Event event = eventService.getEvent(1);
-                LOGGER.info(event);
-                return event;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Event event = eventService.getEventById(1);
+            LOGGER.info(event);
+            return event;
         }, executorService);
 
         CompletableFuture<Sponsor> sponsorFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Sponsor sponsor = sponsorService.getSponsor(1);
-                LOGGER.info(sponsor);
-                return sponsor;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Sponsor sponsor = sponsorService.getSponsorById(1);
+            LOGGER.info(sponsor);
+            return sponsor;
         }, executorService);
 
         CompletableFuture<Artist> artistFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Artist artist = artistService.getArtist(1);
-                LOGGER.info(artist);
-                return artist;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Artist artist = artistService.getArtistById(1);
+            LOGGER.info(artist);
+            return artist;
         }, executorService);
 
         CompletableFuture<Equipment> equipmentFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Equipment equipment = equipmentService.getEquipment(1);
-                LOGGER.info(equipment);
-                return equipment;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Equipment equipment = equipmentService.getEquipmentById(1);
+            LOGGER.info(equipment);
+            return equipment;
         }, executorService);
 
         CompletableFuture<Ticket> ticketFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Ticket ticket = ticketService.getTicket(1);
-                LOGGER.info(ticket);
-                return ticket;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Ticket ticket = ticketService.getTicketById(1);
+            LOGGER.info(ticket);
+            return ticket;
         }, executorService);
 
         CompletableFuture<Staff> staffFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Staff staff = staffService.getStaff(1);
-                LOGGER.info(staff);
-                return staff;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Staff staff = staffService.getStaffById(1);
+            LOGGER.info(staff);
+            return staff;
         }, executorService);
 
         CompletableFuture<Audience> audienceFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Audience audience = audienceService.getAudience(1);
-                LOGGER.info(audience);
-                return audience;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Audience audience = audienceService.getAudienceById(1);
+            LOGGER.info(audience);
+            return audience;
         }, executorService);
 
         CompletableFuture<Booking> bookingFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Booking booking = bookingService.getBooking(1);
-                LOGGER.info(booking);
-                return booking;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Booking booking = bookingService.getBookingById(1);
+            LOGGER.info(booking);
+            return booking;
         }, executorService);
 
         CompletableFuture<Feedback> feedbackFuture = CompletableFuture.supplyAsync(() -> {
-            try {
-                Feedback feedback = feedbackService.getFeedback(1);
-                LOGGER.info(feedback);
-                return feedback;
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            Feedback feedback = feedbackService.getFeedbackById(1);
+            LOGGER.info(feedback);
+            return feedback;
         }, executorService);
 
         LOGGER.info("All threads are running: " + Thread.currentThread().getName());
@@ -186,7 +134,7 @@ public class Main {
 //        }
 
         // Shutdown the executor service after all tasks are completed
-        LOGGER.warn("Executor services shutting down...");
+        LOGGER.debug("Executor services shutting down...");
         executorService.shutdown();
     }
 }
