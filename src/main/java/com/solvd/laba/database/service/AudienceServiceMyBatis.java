@@ -21,6 +21,20 @@ public class AudienceServiceMyBatis implements IAudienceService {
         }
     }
 
+    public Audience getAudienceByName(String audienceName) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            AudienceMapper audienceMapper = session.getMapper(AudienceMapper.class);
+            return audienceMapper.getAudienceByName(audienceName);
+        }
+    }
+
+    public Audience getAudienceByEmail(String email) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            AudienceMapper audienceMapper = session.getMapper(AudienceMapper.class);
+            return audienceMapper.getAudienceByEmail(email);
+        }
+    }
+
     public ArrayList<Audience> getAudiences() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             AudienceMapper audienceMapper = session.getMapper(AudienceMapper.class);

@@ -31,6 +31,11 @@ public class BookingService implements IBookingService {
     }
 
     @Override
+    public Booking getBookingByAudienceId(int id) {
+        return null;
+    }
+
+    @Override
     public ArrayList<Booking> getBookings() {
         try {
             return bookingDAO.getAll();

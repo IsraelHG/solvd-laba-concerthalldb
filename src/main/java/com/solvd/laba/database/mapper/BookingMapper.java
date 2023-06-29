@@ -13,6 +13,8 @@ public interface BookingMapper {
      */
     Booking getBookingById(int id);
 
+    Booking getBookingByAudienceId(int id);
+
     /**
      * Retrieves all bookings from the database.
      *

@@ -15,6 +15,13 @@ public class Audience {
     private ArrayList<Feedback> feedbacks = new ArrayList<>();
 
     public Audience() {}
+    public Audience(String firstName, String lastName, int age, Gender gender, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.gender = gender;
+        this.email = email;
+    }
     public Audience(int audienceId, String firstName, String lastName, int age, Gender gender, String email) {
         this.audienceId = audienceId;
         this.firstName = firstName;

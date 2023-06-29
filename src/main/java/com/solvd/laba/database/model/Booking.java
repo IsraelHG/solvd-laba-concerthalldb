@@ -20,6 +20,13 @@ public class Booking {
         this.staff = staff;
         this.ticket = ticket;
     }
+    public Booking(LocalDateTime bookingDate, Event event, Audience audience, Staff staff, Ticket ticket) {
+        this.bookingDate = bookingDate;
+        this.event = event;
+        this.audience = audience;
+        this.staff = staff;
+        this.ticket = ticket;
+    }
 
     public int getBookingId() {
         return bookingId;

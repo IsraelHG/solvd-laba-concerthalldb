@@ -21,6 +21,14 @@ public class BookingServiceMyBatis implements IBookingService {
         }
     }
 
+    @Override
+    public Booking getBookingByAudienceId(int id) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            BookingMapper bookingMapper = session.getMapper(BookingMapper.class);
+            return bookingMapper.getBookingByAudienceId(id);
+        }
+    }
+
     public ArrayList<Booking> getBookings() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             BookingMapper bookingMapper = session.getMapper(BookingMapper.class);
