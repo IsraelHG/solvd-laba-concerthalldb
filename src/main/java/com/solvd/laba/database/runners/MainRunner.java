@@ -1,28 +1,68 @@
 package com.solvd.laba.database.runners;
 
-import com.solvd.laba.database.enums.Gender;
-import com.solvd.laba.database.facade.ConcertHallRegistration;
+import com.solvd.laba.database.facade.ConcertHallAccount;
 import com.solvd.laba.database.model.Audience;
-import com.solvd.laba.database.model.Booking;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Scanner;
+
 public class MainRunner {
-    public static final Logger LOGGER = LogManager.getLogger(ConcertHallRegistration.class.getName());
+    public static final Logger LOGGER = LogManager.getLogger(MainRunner.class.getName());
+    static Scanner scanner = new Scanner(System.in);
 
-    //    ConcertHallFacade userAccount = new ConcertHallFacade("mybatis");
-//    Audience person1 = userAccount.register("firstName", "lastName", "age", "gender", "email");
-//    userAccount.book("event1", person1);
-//    userAccount.giveFeedback("event1", person1);
     public static void main(String[] args) {
-        ConcertHallRegistration concertHallRegistration = new ConcertHallRegistration();
+        ConcertHallAccount myAccount = new ConcertHallAccount();
 
-        Audience israel = concertHallRegistration.register("Israel", "Hernandez", 24, "Male", "ihernandez.laba@solvd.com");
-        if (concertHallRegistration.createBookingForEvent(israel, 3)) {
-            LOGGER.info("Booking successful!");
+        LOGGER.info("Welcome to the Concert Hall!");
+
+        // Prompt user to login or register
+        int choice = promptLoginOrRegister();
+
+        // Perform login or registration based on user's choice
+        Audience audience = null;
+        if (choice == 1) {
+            audience = myAccount.login();
+        } else if (choice == 2) {
+            audience = myAccount.register();
         }
-        else {
-            LOGGER.info("Failed to book your given event ID.");
+
+        if (audience != null) {
+            // Successful login or registration
+            LOGGER.info("Welcome, " + audience.getFirstName() + "!");
+
+            // Allow user to book an event
+            boolean bookingSuccessful = promptBooking(myAccount, audience);
+            if (bookingSuccessful) {
+                LOGGER.info("Thank you for booking the event!");
+            }
+        } else {
+            LOGGER.info("Login or registration failed. Exiting the program.");
         }
+    }
+
+    private static int promptLoginOrRegister() {
+        String input;
+        do {
+            LOGGER.info("Please choose an option:");
+            LOGGER.info("1. Login");
+            LOGGER.info("2. Register");
+
+            input = scanner.nextLine().trim().toLowerCase();
+        } while (!input.matches("^(login|register|[12])$"));
+
+        if (input.equals("login") || input.equals("1")) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    private static boolean promptBooking(ConcertHallAccount account, Audience audience) {
+        LOGGER.info("Please enter the ID of the event you want to book:");
+        int eventId = scanner.nextInt();
+        scanner.nextLine(); // Consume the remaining newline character
+
+        return account.createBookingForEvent(audience, eventId);
     }
 }

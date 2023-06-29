@@ -18,6 +18,8 @@ public interface IBookingService {
      */
     Booking getBookingById(int id);
 
+    Booking getBookingByAudienceId(int id);
+
     /**
      * Retrieves a list of all bookings.
      *

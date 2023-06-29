@@ -49,6 +49,21 @@
         b.booking_id = #{bookingId}
     </select>
 
+    <!-- Looks for a booking with a certain audience ID. Only one booking per audience. -->
+    <select id="getBookingByAudienceId" resultMap="bookingResultMap">
+        SELECT b.booking_id, b.booking_date,
+        e.event_id, e.name AS event_name, e.start_date, e.end_date,
+        a.audience_id, a.first_name AS audience_first_name, a.last_name AS audience_last_name, a.age, a.gender, a.email,
+        s.staff_id, s.first_name AS staff_first_name, s.last_name AS staff_last_name, s.role,
+        t.ticket_id, t.seat_number
+        FROM bookings b
+        INNER JOIN events e ON b.event_id = e.event_id
+        INNER JOIN audiences a ON b.audience_id = a.audience_id
+        INNER JOIN staffs s ON b.staff_id = s.staff_id
+        INNER JOIN tickets t ON b.ticket_id = t.ticket_id
+        WHERE a.audience_id = #{id}
+    </select>
+
     <select id="getBookings" resultMap="bookingResultMap">
         SELECT b.booking_id, b.booking_date,
         e.event_id, e.name AS event_name, e.start_date, e.end_date,
