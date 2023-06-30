@@ -1,4 +1,4 @@
-package com.solvd.laba.database.runners;
+package com.solvd.laba.database;
 
 import com.solvd.laba.database.facade.ConcertHallAccount;
 import com.solvd.laba.database.model.Audience;
